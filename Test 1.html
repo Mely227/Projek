@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projek</title>
+</head>
+<style>
+  /* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+:root {
+  background: radial-gradient(circle, rgb(160, 212, 255), rgb(255, 255, 255), rgb(160, 212, 255));
+  --color-bg: linear-gradient(to right, rgb(160, 212, 255), rgb(255, 255, 255));;
+  --color-primary: #2563eb; /* medium blue */
+  --color-primary-dark: #1e40af;
+  --color-text-primary: #1e293b; /* dark slate */
+  --color-text-secondary: #475569; /* gray-600 */
+  --color-border: #ffffff;
+  --color-card-bg: #ffffff;
+  --color-accent: #ef4444; /* bright red */
+  --color-accent-light: #fee2e2;
+  --border-radius: 8rem;
+  --transition-speed: 0.3s;
+  --font-family: 'Inter', sans-serif;
+}
+
+/* Reset and base */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3 {
+  margin: 0 0 1rem 0;
+  font-weight: 800;
+  color: var(--color-primary-dark);
+}
+
+h1 {
+  font-size: 3.5rem;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+p {
+  color: var(--color-text-secondary);
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  color: var(--color-primary-dark);
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding: 0 1.5rem 3rem;
+}
+
+/* Header */
+header {
+  position: sticky;
+  top: 0;
+  background: var(--color-bg);
+  box-shadow: 0 2px 10px rgb(37 99 235 / 0.1);
+  z-index: 999;
+}
+nav {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  font-weight: 900;
+  font-size: 1.75rem;
+  user-select: none;
+  color: var(--color-primary);
+}
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+.nav-links a {
+  font-weight: 600;
+  font-size: 1rem;
+  padding-bottom: 3px;
+  position: relative;
+  transition: color var(--transition-speed);
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background-color: var(--color-primary);
+  border-radius: 10px;
+  transition: width var(--transition-speed);
+}
+.nav-links a:hover::after,
+.nav-links a:focus::after {
+  width: 100%;
+}
+.nav-links a:hover,
+.nav-links a:focus {
+  color: var(--color-primary-dark);
+  outline-offset: 2px;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, #ebf4ff 0%, #ffffff 100%);
+  padding: 6rem 1.5rem 5rem;
+  text-align: center;
+  border-radius: var(--border-radius);
+  margin-top: 2rem;
+  box-shadow: 0 12px 24px rgba(99, 102, 241, 0.15);
+}
+.hero h1 {
+  font-size: 4rem;
+  max-width: 900px;
+  margin-inline: auto;
+}
+.hero p {
+  font-size: 1.4rem;
+  max-width: 700px;
+  margin: 1rem auto 3rem;
+  color: var(--color-primary-dark);
+}
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 1rem 2.5rem;
+  font-size: 1.125rem;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 6px 15px rgb(37 99 235 / 0.4);
+  transition: background-color var(--transition-speed), box-shadow var(--transition-speed), transform var(--transition-speed);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--color-primary-dark);
+  box-shadow: 0 10px 30px rgb(37 99 235 / 0.6);
+  outline-offset: 3px;
+  transform: scale(1.05);
+}
+</style>
+<body>
+  <header>
+    <nav>
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <img src="Imange/logo.png.png" alt="Logo Free TOEFL" style="height: 90px;">
+        <div class="logo">TOEFL <span style="color: var(--color-accent)">.Try</span></div>
+      </div>
+      <div class="nav-links">
+        <a href="Beranda.html">Beranda</a>
+        <a href="Dash.html">Dashboard</a>
+        <a href="Test.html">Test</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container" role="main">
+    <section class="hero" aria-label="Sambutan Latihan TOEFL">
+      <h1>Tes TOEFL Listening</h1>
+      <p>Selamat datang! Persiapkan diri anda untuk tes listening TOEFL yang terdiri dari 20 soal.
+        Dengarkan dengan fokus dan pilih jawaban terbaik dengan waktu <b>25.00 menit</b>. Klik tombol mulai ketika sudah siap.
+        <B>GOOD LUCK !!</B>
+      </p>
+      <a href="Listening.html"><button  class="btn-primary" type="button" id="btn-start" aria-label="Mulai Latihan">Mulai Tes >>></button></a>
+    </section> 
+  </main>
+</body>
+</html>

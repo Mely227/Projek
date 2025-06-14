@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projek</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+    :root {
+      background: radial-gradient(circle, rgb(160, 212, 255), rgb(255, 255, 255), rgb(160, 212, 255));
+      --color-bg: linear-gradient(to right, rgb(160, 212, 255), rgb(255, 255, 255));
+      --color-primary: #2563eb;
+      --color-primary-dark: #1e40af;
+      --color-text-primary: #1e293b;
+      --color-text-secondary: #475569;
+      --color-border: #ffffff;
+      --color-card-bg: #ffffff;
+      --color-accent: #ef4444;
+      --color-accent-light: #fee2e2;
+      --border-radius: 8rem;
+      --transition-speed: 0.3s;
+      --font-family: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-family);
+      background-color: var(--color-bg);
+      color: var(--color-text-primary);
+      line-height: 1.6;
+      font-size: 18px;
+    }
+
+    h1, h2, h3 {
+      margin: 0 0 1rem 0;
+      font-weight: 800;
+      color: var(--color-primary-dark);
+    }
+
+    h1 { font-size: 3.5rem; }
+    h2 { font-size: 2rem; }
+
+    p {
+      color: var(--color-text-secondary);
+      margin-top: 0;
+      font-size: 1.1rem;
+    }
+
+    a {
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    a:hover, a:focus {
+      color: var(--color-primary-dark);
+    }
+
+    .container, .container1 {
+      max-width: 100%;
+      margin-inline: auto;
+      padding: 0 1.5rem 3rem;
+    }
+
+    .container1 {
+      background: linear-gradient(135deg, #f8f8f8 0%, #d5f1fd 100%);
+      padding: 6rem 1.5rem 5rem;
+      text-align: center;
+      border-radius: 30px;
+      margin-top: 1rem;
+      box-shadow: 0 12px 24px rgba(99, 102, 241, 0.15);
+    }
+
+    .containerr {
+      background: linear-gradient(135deg, #f8f8f8 0%, #d5f1fd 100%);
+      padding: 6rem 1.5rem 5rem;
+      text-align: center;
+      border-radius: 30px;
+      margin-top: 1rem;
+      box-shadow: 0 12px 24px rgba(99, 102, 241, 0.15);
+    }
+
+
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--color-bg);
+      box-shadow: 0 2px 10px rgba(37, 70, 140, 0.1);
+      z-index: 999;
+    }
+
+    nav {
+      max-width: 1200px;
+      margin-inline: auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-weight: 900;
+      font-size: 1.75rem;
+      user-select: none;
+      color: var(--color-primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      font-weight: 600;
+      font-size: 1rem;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background-color: var(--color-primary);
+      border-radius: 10px;
+      transition: width var(--transition-speed);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #d5f1fd 0%, #f8f8f8 100%);
+      padding: 6rem 1.5rem 5rem;
+      border-radius: 30px;
+      margin-top: 2rem;
+      box-shadow: 0 12px 24px rgba(99, 102, 241, 0.15);
+      text-align: center;
+    }
+
+    .btn-primary {
+      background-color: var(--color-primary);
+      color: white;
+      border: none;
+      border-radius: 0.75rem;
+      padding: 1rem 2.5rem;
+      font-size: 1.125rem;
+      cursor: pointer;
+      font-weight: 700;
+      box-shadow: 0 6px 15px rgb(37 99 235 / 0.4);
+      transition: var(--transition-speed);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-primary-dark);
+      box-shadow: 0 10px 30px rgb(37 99 235 / 0.6);
+      transform: scale(1.05);
+    }
+
+    .hero1 {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+    }
+
+    .hero1-content {
+      max-width: 600px;
+      margin-left: 40px;
+    }
+
+    .hero1-content h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      background-color: #0c4a87;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .hero1 {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero1-content {
+        margin-left: 0;
+        margin-top: 20px;
+      }
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .feature-box {
+      flex: 1 1 300px;
+      max-width: 320px;
+      text-align: center;
+    }
+
+    .feature-box img {
+      height: 80px;
+      margin-bottom: 20px;
+    }
+
+    .logo-cert,
+    .sdg-section,
+    .app-download,
+    .social-icons {
+      margin-top: 2rem;
+    }
+
+    .logo-cert,
+    .sdg-section {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .sdg-badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      width: 60px;
+      height: 60px;
+      color: #fff;
+      font-size: 12px;
+      text-align: center;
+      padding: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-radius: 8px;
+    }
+
+    .app-download img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .social-icons img {
+      width: 30px;
+      margin-right: 10px;
+    }
+
+    .container5 {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .column {
+      flex: 1;
+      text-align: left;
+    }
+    .column h3 {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .column p, .column a {
+      font-size: 0.9em;
+      color: #666;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .column p.highlight {
+      font-weight: bold;
+      color: #000;
+    }
+    .sdg-icons {
+      display: flex;
+      gap: 10px;
+      margin: 10px 0;
+    }
+    .sdg-icon {
+      width: 40px;
+      height: 40px;
+      background-size: cover;
+      background-position: center;
+    }
+    .app-download img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    .social-icons img {
+      width: 30px;
+      margin-right: 10px;
+    }
+    .social-icons {
+      margin-top: 10px;
+    }
+
+    .container22 {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    p.description {
+      color: #666;
+      font-size: 1.1em;
+      margin-bottom: 30px;
+    }
+    .cards {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .card {
+      /* background: #fff; */
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      padding: 20px;
+      text-align: left;
+    }
+    .card img {
+      width: 100%;
+      height: auto;
+      margin-bottom: 15px;
+    }
+    .card h2 {
+      color: #333;
+      font-size: 1.5em;
+      margin: 10px 0;
+    }
+    .card p {
+      color: #666;
+      font-size: 1em;
+      margin: 10px 0;
+    }
+    .card .details {
+      display: flex;
+      justify-content: space-between;
+      color: #888;
+      font-size: 0.9em;
+    }
+    .card .details span {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <img src="Imange/logo.png.png" alt="Logo Free TOEFL" style="height: 90px;">
+        <div class="logo">TOEFL <span style="color: var(--color-accent)">.Try</span></div>
+      </div>
+      <div class="nav-links">
+        <a href="Beranda.html">Beranda</a>
+        <a href="Dash.html">Dashboard</a>
+        <a href="Test.html">Test</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero1">
+      <div class="hero1-content">
+        <h1 style="color: #0c4a87;">Tes TOEFL Online</h1>
+        <p style="color: #1e40af;">Tes TOEFL dibutuhkan buat macam-macam keperluan. Yuk, berlatih bersama lewat simulasi tes online TOEFL <b>GRATIS</b> dari TOEFL.Try!</p>
+        <a href="Dash.html"><button class="btn-primary" type="button">Login</button></a>
+      </div>
+      <img src="Imange/foto.png" alt="Wanita dengan laptop">
+    </section>
+
+    <div class="container1">
+      <section>
+        <h1 style="text-align:center; color: #0c4a87;">Apa itu TOEFL?</h1>
+        <p style="text-align:center; color: #1e40af;">TOEFL adalah ujian kemampuan berbahasa Inggris yang diperlukan untuk masuk universitas di luar negeri.</p>
+        <h2 style="color: #0c4a87;">Mengapa Harus Ikut Tes TOEFL?</h2>
+        <div class="features">
+          <div class="feature-box">
+            <img src="https://img.icons8.com/ios-filled/100/graduation-cap.png" alt="Graduation" />
+            <p style="color: #1e40af;">Masuk universitas ternama di <strong>Amerika, Inggris, Australia, Kanada</strong></p>
+          </div>
+          <div class="feature-box">
+            <img src="https://img.icons8.com/ios-filled/100/rocket.png" alt="Rocket" />
+            <p style="color: #1e40af;"><strong>Syarat kursus pendek</strong> di Amerika Serikat</p>
+          </div>
+          <div class="feature-box">
+            <img src="https://img.icons8.com/ios-filled/100/visa.png" alt="Visa" />
+            <p style="color: #1e40af;"><strong>Syarat beasiswa</strong> ke luar negeri</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="hero1">
+      <img src="Imange/Orang.png" alt="Ilustrasi orang belajar">
+      <div class="hero1-content">
+        <h1 style="color: #0c4a87;">Latih kemampuanmu lewat tes simulasi gratis!</h1>
+        <a href="Dash.html" class="btn">Login</a>
+      </div>
+    </section>
+
+    <div class="containerr">
+        <div class="container22">
+    <h1 style="color: #0c4a87;">Test TOEFL Berstandar Internasional</h1>
+    <p class="description" style="color: #1e40af;">Test TOEFL Online di Englishvit telah disesuaikan dengan standar test TOEFL Internasional.</p>
+    <div class="cards">
+      <div class="card">
+        <img src="https://englishvit.com/image/program/toefl/08_23/listening.webp" alt="Listening Icon">
+        <h2 style="color: #0c4a87;">Listening Section</h2>
+        <p style="color: #1e40af;">Mengukur kemampuanmu memahami percakapan dalam bahasa Inggris.</p>
+        <div class="details">
+          <span>⏰ 25 menit</span>
+          <span>📝 20 Soal</span>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://englishvit.com/image/program/toefl/08_23/structure.webp" alt="Structure & Writing Icon">
+        <h2 style="color: #0c4a87;">Structure & Writing Expression</h2>
+        <p style="color: #1e40af;">Mengukur kemampuanmu memahami tata bahasa Inggris.</p>
+        <div class="details">
+          <span >⏰ 30 menit</span>
+          <span>📝 40 Soal</span>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://englishvit.com/image/program/toefl/08_23/reading.webp" alt="Reading Icon">
+        <h2 style="color: #0c4a87;">Reading Comprehension</h2>
+        <p style="color: #1e40af;">Mengukur kemampuanmu memahami teks atau artikel bahasa Inggris.</p>
+        <div class="details" >
+          <span>⏰ 40 menit</span>
+          <span>📝 40 Soal</span>
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+
+    <div class="containerr">
+    <div class="container5">
+    <div class="column" >
+      <img src="Imange/logo.png.png" alt="Logo Free TOEFL" style="height: 90px;">
+      <p class="highlight" style="color: #0c4a87;">TOEFL.Try, Top Choice Learning Platform</p>
+      <p style="color: #0c4a87;">Supporting 4 goals of SDG's impact</p>
+      <div class="sdg-icons">
+        <div class="sdg-icon" style="background-image: url('https://via.placeholder.com/40?text=SDG4')"></div>
+        <div class="sdg-icon" style="background-image: url('https://via.placeholder.com/40?text=SDG5')"></div>
+        <div class="sdg-icon" style="background-image: url('https://via.placeholder.com/40?text=SDG8')"></div>
+        <div class="sdg-icon" style="background-image: url('https://via.placeholder.com/40?text=SDG10')"></div>
+      </div>
+      <div class="app-download">
+        <p style="color: #0c4a87;"><strong>Download Cakap App</strong></p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play">
+        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store">
+      </div>
+      <div class="social-icons" >
+        <img src="https://img.icons8.com/ios-filled/30/000000/facebook--v1.png" alt="Facebook">
+        <img src="https://img.icons8.com/ios-filled/30/000000/instagram-new--v1.png" alt="Instagram">
+        <img src="https://img.icons8.com/ios-filled/30/000000/youtube-play.png" alt="YouTube">
+        <img src="https://img.icons8.com/ios-filled/30/000000/twitter--v1.png" alt="Twitter">
+        <img src="https://img.icons8.com/ios-filled/30/000000/linkedin.png" alt="LinkedIn">
+        <img src="https://img.icons8.com/ios-filled/30/000000/tiktok--v1.png" alt="TikTok">
+      </div>
+    </div>
+    <div class="column">
+      <h3 style="color: #0c4a87;">Language Courses - Adults</h3>
+      <p style="color: #0c4a87;">English</p>
+      <p style="color: #0c4a87;">Mandarin</p>
+      <p style="color: #0c4a87;">Japanese</p>
+      <p style="color: #0c4a87;">Korean</p>
+      <h3 style="color: #0c4a87;">Language Courses - Kids</h3>
+      <p style="color: #0c4a87;">English</p>
+      <p style="color: #0c4a87;">Mandarin</p>
+    </div>
+    <div class="column">
+      <h3 style="color: #0c4a87;">TOEFL.Try Upskill</h3>
+      <p style="color: #0c4a87;">Engineering</p>
+      <p style="color: #0c4a87;">Technology</p>
+      <p style="color: #0c4a87;">Business & Management</p>
+      <p style="color: #0c4a87;">Agriculture</p>
+      <p style="color: #0c4a87;">Language</p>
+      <p style="color: #0c4a87;">Career & Self Development</p>
+      <p style="color: #0c4a87;">Media & Creative</p>
+      <p style="color: #0c4a87;">Tourism & Hospitality</p>
+      <p style="color: #0c4a87;">Health & Lifestyle</p>
+      <p style="color: #0c4a87;">Education</p>
+      <p style="color: #0c4a87;">All Categories</p>
+    </div>
+    <div class="column">
+      <h3 style="color: #0c4a87;">About TOEFL.Try</h3>
+      <p style="color: #0c4a87;">About Us</p>
+      <p style="color: #0c4a87;">Curriculum</p>
+      <p style="color: #0c4a87;">Testimonials</p>
+      <p style="color: #0c4a87;">Career - We're hiring!</p>
+      <p style="color: #0c4a87;">TOEFL.Try Community</p>
+      <p style="color: #0c4a87;">News and Media</p>
+      <p style="color: #0c4a87;">Blog</p>
+      <p style="color: #0c4a87;">Frequently Asked Questions</p>
+    </div>
+    <div class="column">
+      <h3 style="color: #0c4a87;">Payment Methods</h3>
+      <p style="color: #0c4a87;"><strong>Credit Cards</strong></p>
+      <p><img src="https://img.icons8.com/color/30/000000/visa.png" alt="Visa"></p>
+      <p><img src="https://img.icons8.com/color/30/000000/paypal.png" alt="PayPal"></p>
+      <p style="color: #0c4a87;"><strong>Payment Partners</strong></p>
+      <p><img src="https://img.icons8.com/color/30/000000/shopee.png" alt="Shopee"></p>
+      <p style="color: #0c4a87;"><strong>Other Programs</strong></p>
+      <p style="color: #0c4a87;">Program Prakerja</p>
+    </div>
+  </div>
+  </div>
+</body>
+</html>

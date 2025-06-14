@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projek</title>
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      background: radial-gradient(circle, rgb(160, 212, 255), rgb(255, 255, 255), rgb(160, 212, 255));
+      --color-bg: radial-gradient(circle, rgb(160, 212, 255), rgb(255, 255, 255));
+      --color-primary: #2563eb;
+      --color-primary-dark: #1e40af;
+      --color-text-primary: #1e293b;
+      --color-text-secondary: #475569;
+      --color-card-bg: #ffffffcc;
+      --color-accent: #ef4444;
+      --border-radius: 16px;
+      --transition-speed: 0.3s;
+      --font-family: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background: var(--color-bg);
+      color: var(--color-text-primary);
+      line-height: 1.6;
+      font-size: 18px;
+    }
+
+    a {
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--color-bg);
+      box-shadow: 0 2px 10px rgb(37 99 235 / 0.1);
+      z-index: 999;
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-weight: 900;
+      font-size: 1.75rem;
+      color: var(--color-primary);
+    }
+
+    .logo span {
+      color: var(--color-accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      font-weight: 600;
+      font-size: 1rem;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background-color: var(--color-primary);
+      transition: width var(--transition-speed);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: var(--color-card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--color-primary-dark);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Timer style */
+    #timer {
+      font-weight: 700;
+      color: var(--color-accent);
+      font-size: 1.25rem;
+      text-align: center;
+      user-select: none;
+      letter-spacing: 1px;
+    }
+
+    .question {
+      margin-bottom: 2rem;
+    }
+
+    .question-text {
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .options {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    input[type="radio"] {
+      display: none;
+    }
+
+    label {
+      display: block;
+      padding: 12px 16px;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    input[type="radio"]:checked + label {
+      background-color: var(--color-primary);
+      color: white;
+      border-color: var(--color-primary);
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+
+    button {
+      background-color: var(--color-primary);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    button:disabled {
+      background-color: #a0aec0;
+      cursor: not-allowed;
+    }
+
+    .score-section {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 1rem;
+      }
+
+      .buttons {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <img src="Imange/logo.png.png" alt="Logo Free TOEFL" style="height: 90px;">
+        <div class="logo">TOEFL <span style="color: var(--color-accent)">.Try</span></div>
+      </div>
+      <div class="nav-links">
+        <a href="Beranda.html">Beranda</a>
+        <a href="Dash.html">Dashboard</a>
+        <a href="Test.html">Test</a>
+      </div>
+    </nav>
+  </header>
+  
+
+  <main class="container">
+    <h1>TOEFL Reading Test</h1>
+    <div id="timer" aria-live="polite" aria-label="Waktu tersisa untuk mengerjakan: 40 menit">Waktu tersisa: 40:00</div>
+    <form id="test-form" novalidate>
+    <br>
+
+      <section class="question" data-index="0">
+        <div class="question-text">
+            <h3>Reading Comprehension Passage 1</h3> <br>
+            <h3>Untuk soal nomor 1-6</h3> <br>
+            <p>Robert Moog was an American inventor who developed the Moog Synthesizer. It was one of the first synthesizers to gain widespread use as a musical instrument. Moog's synthesizers were an important part in the line of musical innovation in rock and jazz music in the 1960s and 1970s. Robert Arthur Moog was born in Queens, a borough of New York City 75 years ago. He became fascinated with electronics as a teenager, particularly an early electronic music instrument called the theremin. Moog studied physics and electrical engineering at Queens College, then earned his bachelor's degree in New York City and later received a Ph.D. in engineering physics (Cornell University) in Ithaca, New York. In 1954, while still an undergraduate student, Moog founded his own company to sell theremins and theremin kits. <br><br>
+            Soon after, Moog began working on a keyboard instrument that could replicate the sound of any musical instrument electronically. Working with American composer Herbert Deutsch, Moog introduced the prototype Moog Synthesizer at a convention in 1964. The device represented a significant advance over previous electronic synthesizers because of the use of new semiconductor technology, which made it smaller and considerably cheaper than earlier machines. The Moog, as it was known, was soon in demand by musicians all over the world. <br><br>
+            In 1964, Moog began a collaboration with American composer and organist Wendy Carlos (now Wendy Carlos), who released the bestselling electronic music album Switched-On Bach in 1968. Rock groups such as the Beatles and Yes and jazz musicians such as Herbie Hancock and Chick Corea began to use the Moog Synthesizer in their recordings, a trend that increased when the company introduced the compact and portable Minimoog in 1970. A Moog Synthesizer was also prominently featured on the soundtrack to the movie A Clockwork Orange in 1971. <br><br>
+            </p>
+            <div class="question-text">
+              1. The word “prominently” in paragraph 3 can easily be replaced by…
+            </div>
+            <ul class="options">
+              <li><input type="radio" id="q0a0" name="q0" value="A"><label for="q0a0">significantly</label></li>
+              <li><input type="radio" id="q0a1" name="q0" value="B"><label for="q0a1">perfectly</label></li>
+              <li><input type="radio" id="q0a2" name="q0" value="C"><label for="q0a2">accurately</label></li>
+              <li><input type="radio" id="q0a3" name="q0" value="D"><label for="q0a3"> excellently</label></li>
+            </ul>
+        </div>
+      </section>
+
+      <section class="question" data-index="1" hidden>
+        <div class="question-text">
+          2. The passage describes the theremin as a/an …
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q1a0" name="q1" value="A"><label for="q1a0">prototype of Moog Synthesizer</label></li>
+          <li><input type="radio" id="q1a1" name="q1" value="B"><label for="q1a1">initial electronic music instrument</label></li>
+          <li><input type="radio" id="q1a2" name="q1" value="C"><label for="q1a2">musical instrument to replicate the sound</label></li>
+          <li><input type="radio" id="q1a3" name="q1" value="D"><label for="q1a3">instrument of electronic tool</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="2" hidden>
+        <div class="question-text">
+          3. The pronoun “it” paragraph 2 refers to…
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q2a0" name="q2" value="A"><label for="q2a0">electronic synthesizer</label></li>
+          <li><input type="radio" id="q2a1" name="q2" value="B"><label for="q2a1">a keyboard instrument</label></li>
+          <li><input type="radio" id="q2a2" name="q2" value="C"><label for="q2a2">prototype of Moog Synthesizer</label></li>
+          <li><input type="radio" id="q2a3" name="q2" value="D"><label for="q2a3">new semiconductor technology</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="3" hidden>
+        <div class="question-text">
+          4. According to the passage, all of the following are true about The Moog Q. EXCEPT…
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q3a0" name="q3" value="A"><label for="q3a0">It was invented by Robert Moog</label></li>
+          <li><input type="radio" id="q3a1" name="q3" value="B"><label for="q3a1">It was first used in 1964</label></li>
+          <li><input type="radio" id="q3a2" name="q3" value="C"><label for="q3a2">It initiated new technology which was smaller and cheaper than previous</label></li>
+          <li><input type="radio" id="q3a3" name="q3" value="D"><label for="q3a3">It was the first synthesizer in the world</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="4" hidden>
+        <div class="question-text">
+          5. The paragraph following the passage most likely discusses…
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q4a0" name="q4" value="A"><label for="q4a0">collaboration between The Moog and other musicians</label></li>
+          <li><input type="radio" id="q4a1" name="q4" value="B"><label for="q4a1">the description of compact and portable Mini Moog</label></li>
+          <li><input type="radio" id="q4a2" name="q4" value="C"><label for="q4a2">how to create music using Moog</label></li>
+          <li><input type="radio" id="q4a3" name="q4" value="D"><label for="q4a3">the growth of Moog’s business</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="5" hidden>
+        <div class="question-text">
+          6. The best title for the passage would be…
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q5a0" name="q5" value="A"><label for="q5a0">Pickpockets are well dressed</label></li>
+          <li><input type="radio" id="q5a1" name="q5" value="B"><label for="q5a1">Jingle Bell Schools</label></li>
+          <li><input type="radio" id="q5a2" name="q5" value="C"><label for="q5a2"> Pickpockets</label></li>
+          <li><input type="radio" id="q5a3" name="q5" value="D"><label for="q5a3">The hanging of pickpockets</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="6" hidden>
+        <div class="question-text">
+            <h3>Reading Comprehension Passage 2</h3> <br>
+            <h3>Untuk soal nomor 7-11</h3> <br>
+            <p>Pickpockets have been the victim of public punishment for centuries. In 18th-century England, for example, they were hanged for their crimes. But even as they were being hanged, other pickpockets skilfully stole money from the watching crowd. <br><br>
+            Clearly, hanging was not a good way of stopping people from stealing. The reason is simple: punishment alone cannot stop a crime. It is far more important to know why a person commits a crime. If we can understand that, then we can reduce the number of crimes. <br><br>
+            Most pickpockets do not steal because they are poor. They do it for the excitement. They enjoy taking things and fooling people. Sometimes they do it for revenge. They believe they have a right to take money from rich people. Others do it just because it is easy and fun. <br><br>
+            Pickpockets can work alone or in teams. A team might include a woman carrying a baby and an old man. The woman might push the baby in front of a person. The person might move back and bump into the old man. Then the woman quickly steals his wallet while pretending to be angry at the old man. Teams work best in crowded places like buses, trains, and shops. <br><br>
+            Many pickpockets are very clever and skillful. They are quick and confident, and their victims rarely feel anything. Sometimes pickpockets work in gangs. In South America, pickpockets are trained in schools where they practice with fake dummies and real people. Some of the most efficient pickpockets in the world come from South America. <br><br>
+            </p>
+            <div class="question-text">
+              7. The hanging of pickpockets were not continued because 
+            </div>
+            <ul class="options">
+              <li><input type="radio" id="q6a0" name="q6" value="A"><label for="q6a0"> they were a crowd of people</label></li>
+              <li><input type="radio" id="q6a1" name="q6" value="B"><label for="q6a1">it was against humanity</label></li>
+              <li><input type="radio" id="q6a2" name="q6" value="C"><label for="q6a2"> the police were not at the hanging</label></li>
+              <li><input type="radio" id="q6a3" name="q6" value="D"><label for="q6a3">it was not effective to stop pickpocketing</label></li>
+            </ul>
+        </div>
+      </section>
+
+      <section class="question" data-index="7" hidden>
+        <div class="question-text">
+          8. Pick pocketing is … crime.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q7a0" name="q7" value="A"><label for="q7a0">an old</label></li>
+          <li><input type="radio" id="q7a1" name="q7" value="B"><label for="q7a1">a modern</label></li>
+          <li><input type="radio" id="q7a2" name="q7" value="C"><label for="q7a2">a temporary</label></li>
+          <li><input type="radio" id="q7a3" name="q7" value="D"><label for="q7a3">a contemporary</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="8" hidden>
+        <div class="question-text">
+          9. The passage mentions that pickpockets steal in/from the following, except
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q8a0" name="q8" value="A"><label for="q8a0">crowded places</label></li>
+          <li><input type="radio" id="q8a1" name="q8" value="B"><label for="q8a1"> the shops</label></li>
+          <li><input type="radio" id="q8a2" name="q8" value="C"><label for="q8a2">drunkards</label></li>
+          <li><input type="radio" id="q8a3" name="q8" value="D"><label for="q8a3">women</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="9" hidden>
+        <div class="question-text">
+          10. South American pickpockets are the most efficient ones because …
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q9a0" name="q9" value="A"><label for="q9a0">they are well-trained</label></li>
+          <li><input type="radio" id="q9a1" name="q9" value="B"><label for="q9a1">they are handsome</label></li>
+          <li><input type="radio" id="q9a2" name="q9" value="C"><label for="q9a2">they are respectable</label></li>
+          <li><input type="radio" id="q9a3" name="q9" value="D"><label for="q9a3">they are well-dressed</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="10" hidden>
+        <div class="question-text">
+          11. The passage suggests that the most efficient pickpockets come from …
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q10a0" name="q10" value="A"><label for="q10a0">Africa</label></li>
+          <li><input type="radio" id="q10a1" name="q10" value="B"><label for="q10a1">Asia</label></li>
+          <li><input type="radio" id="q10a2" name="q10" value="C"><label for="q10a2">South America</label></li>
+          <li><input type="radio" id="q10a3" name="q10" value="D"><label for="q10a3">Europe</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="11" hidden>
+        <div class="question-text">
+            <h3>Reading Comprehension Passage 3</h3> <br>
+            <h3>Untuk soal nomor 12-19</h3> <br>
+            <p>The cause of tooth decay is acid, which is produced by bacteria in the mouth. The acid removes minerals from tooth enamel, allowing tooth decay to begin. The saliva in the mouth encourages remineralization and lime neutralizes the acid. The rate at which bacteria in the mouth produce acid depends on the amount of plaque there is. When bacteria are exposed to sugar and starch, the production of the plaque can be “primed” by frequent exposure to sugar. To keep your teeth healthy, a regular dental hygiene program should be followed. <br><br>
+            Regular brushing with a toothbrush and dental floss removes large numbers of bacteria in the mouth and thus reduces tooth decay. It also makes the surfaces of the teeth more resistant to acid, enabling saliva to neutralize acid better. Fluoride toothpaste also helps. When the enamel of the teeth are forming, some fluoride may be incorporated into the enamel of the teeth, making them more resistant to attack by acid. Fluoride toothpaste seems to act in another way, by promoting the remineralization of early carious lesions.<br><br>
+            In addition to a regular dental hygiene program, a good way to keep your teeth healthy is to reduce the intake of sweet food. The least cavity-causing way to eat sweets is to eat them all at once and not between. The number of times you eat sweets rather than the total amount determines how much harmful acid the bacteria in your saliva produce. The amount of sweets influences the quality of your saliva. And if you can, sticky sweets that stay in your mouth a long time. Also try to brush and floss your teeth after eating sugary foods. Even rinsing your mouth with water is effective. Whenever possible, eat foods with fiber, such as raw carrot sticks, apples, celery sticks, etc., that scrape off plaque, acting as a toothbrush. Cavities can be greatly reduced if these rules are followed when eating sweets.<br><br>
+            </p>
+            <div class="question-text">
+              12. What does this passage mainly discuss?
+            </div>
+            <ul class="options">
+              <li><input type="radio" id="q11a0" name="q11" value="A"><label for="q11a0">Good nutrition</label></li>
+              <li><input type="radio" id="q11a1" name="q11" value="B"><label for="q11a1"> Food with fiber</label></li>
+              <li><input type="radio" id="q11a2" name="q11" value="C"><label for="q11a2">Ways to keep your teeth healthy</label></li>
+              <li><input type="radio" id="q11a3" name="q11" value="D"><label for="q11a3">Fluoridization and cavities</label></li>
+            </ul>
+        </div>
+      </section>
+
+      <section class="question" data-index="12" hidden>
+        <div class="question-text">
+          13. According to the passage, all of the following statements about plaque are true EXCEPT …
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q12a0" name="q12" value="A"><label for="q12a0"> it consists of acid producing bacteria</label></li>
+          <li><input type="radio" id="q12a1" name="q12" value="B"><label for="q12a1">it is not affected by eating sweets</label></li>
+          <li><input type="radio" id="q12a2" name="q12" value="C"><label for="q12a2">it can be removed with brushing and flossing</label></li>
+          <li><input type="radio" id="q12a3" name="q12" value="D"><label for="q12a3">it reduces the positive effect of saliva</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="13" hidden>
+        <div class="question-text">
+          14. We can infer from the passage that one benefit of fluoride to healthy teeth is…
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q13a0" name="q13" value="A"><label for="q13a0">it strengthens tooth enamel</label></li>
+          <li><input type="radio" id="q13a1" name="q13" value="B"><label for="q13a1"> it stimulates saliva production</label></li>
+          <li><input type="radio" id="q13a2" name="q13" value="C"><label for="q13a2">it makes teeth whiter</label></li>
+          <li><input type="radio" id="q13a3" name="q13" value="D"><label for="q13a3">it is a replacement for brushing and flossing in dental care</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="14" hidden>
+        <div class="question-text">
+          15. The word “it” in paragraph 2 refers to …
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q14a0" name="q14" value="A"><label for="q14a0">dental floss</label></li>
+          <li><input type="radio" id="q14a1" name="q14" value="B"><label for="q14a1">bacteria</label></li>
+          <li><input type="radio" id="q14a2" name="q14" value="C"><label for="q14a2">removal of plaque</label></li>
+          <li><input type="radio" id="q14a3" name="q14" value="D"><label for="q14a3">plaque</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="15" hidden>
+        <div class="question-text">
+          16. What can be concluded from the passage about sweets?
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q15a0" name="q15" value="A"><label for="q15a0">All sweets should be avoided</label></li>
+          <li><input type="radio" id="q15a1" name="q15" value="B"><label for="q15a1"> Sweets should be eaten with care</label></li>
+          <li><input type="radio" id="q15a2" name="q15" value="C"><label for="q15a2">It is better to eat sweets a little at a time throughout the day</label></li>
+          <li><input type="radio" id="q15a3" name="q15" value="D"><label for="q15a3">Sticky sweets are less harmful than other sweets</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="16" hidden>
+        <div class="question-text">
+          17. The word “scrape off” in paragraph 3 is closest in meaning to…
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q16a0" name="q16" value="A"><label for="q16a0">repel</label></li>
+          <li><input type="radio" id="q16a1" name="q16" value="B"><label for="q16a1">rub together with</label></li>
+          <li><input type="radio" id="q16a2" name="q16" value="C"><label for="q16a2">remove</label></li>
+          <li><input type="radio" id="q16a3" name="q16" value="D"><label for="q16a3">dissolve</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="17" hidden>
+        <div class="question-text">
+           18. According to the passage, the value of eating foods with fiber is that …
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q17a0" name="q17" value="A"><label for="q17a0">they contain Vitamin A</label></li>
+          <li><input type="radio" id="q17a1" name="q17" value="B"><label for="q17a1">they are less expensive than a toothbrush</label></li>
+          <li><input type="radio" id="q17a2" name="q17" value="C"><label for="q17a2">they are able to remove the plaque from your teeth</label></li>
+          <li><input type="radio" id="q17a3" name="q17" value="D"><label for="q17a3">they do not need to be eaten with water</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="18" hidden>
+        <div class="question-text">
+          19. The author of the passage states that the amount of acid produced by the bacteria in your saliva increases …
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q18a0" name="q18" value="A"><label for="q18a0">which is</label></li>
+          <li><input type="radio" id="q18a1" name="q18" value="B"><label for="q18a1"> is</label></li>
+          <li><input type="radio" id="q18a2" name="q18" value="C"><label for="q18a2">because</label></li>
+          <li><input type="radio" id="q18a3" name="q18" value="D"><label for="q18a3">there is</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="19" hidden>
+        <div class="question-text">
+            <h3>Reading Comprehension Passage 4</h3> <br>
+            <h3>Untuk soal nomor 20-30</h3> <br>
+            <p>Until recently, most American entrepreneurs were men. Discrimination against women in business, the demands of caring for families, and lack of business training had kept the number of women entrepreneurs time small. Now, however, businesses owned by women account for more than $40 billion in annual revenues, and this figure is likely to continue rising throughout the 1990s. As Carolyn Doppelt Gray, an official of the Small Business Administration, has noted: The 1970s was the decade of women entering management, and the 1980s turned out to be the decade of the women entrepreneur. <br><br>
+            What are some of the factors behind this trend? For one thing, as more women earn advanced degrees in business and enter the corporate world, they are finding obstacles. Men are still entrenched in the managerial ranks, and the corporate climate can be hostile to women managers. Charlotte Taylor, a management consultant, had noted: “In the 1970s women believed if they got an MBA and worked hard they could become chairman of the board. Now they've found out that isn't going to happen, so they go out on their own". <br><br>
+            In the past, most women entrepreneurs worked in "women’s fields": cosmetics and clothing, for example. But this is changing. Consider ASK Computer Systems, a $22-million-a-year computer software business. It was founded in 1973 by Sandra Kurtzig, who was then a housewife with degrees in math and engineering. When Kurtzig founded the business, she was the only employee and her office was in the family room. She kept her company’s cash in a shoebox under the bed. But her business and its reputation grew. At present, ASK has more than 200 employees, and Sandra Kurtzig owns $69 million in stock. <br><br>
+            Of course, many women who start their own businesses fail, just as men do. They still face hurdles in the business world, especially problems in raising money. The banking and finance world is still dominated by men, and old attitudes die hard. Most businesses owned by women are still quite small. But the situation is changing; there are likely to be many more Sandra Kurtzigs in the years ahead. <br><br>
+            </p>
+            <div class="question-text">
+              20. What is the main idea of this passage?
+            </div>
+            <ul class="options">
+              <li><input type="radio" id="q19a0" name="q19" value="A"><label for="q19a0"> Women today are better educated than in the past, making them more attractive to the business world.</label></li>
+              <li><input type="radio" id="q19a1" name="q19" value="B"><label for="q19a1"> The computer is especially lucrative for women today.</label></li>
+              <li><input type="radio" id="q19a2" name="q19" value="C"><label for="q19a2">Women are better at small businesses than men are.</label></li>
+              <li><input type="radio" id="q19a3" name="q19" value="D"><label for="q19a3">Women today are opening more businesses of their own.</label></li>
+            </ul>
+        </div>
+      </section>
+
+      <section class="question" data-index="20" hidden>
+        <div class="question-text">
+          21. The word “excluded” in paragraph 2 is closest in meaning to…
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q20a0" name="q20" value="A"><label for="q20a0">not permitted in</label></li>
+          <li><input type="radio" id="q20a1" name="q20" value="B"><label for="q20a1">often invited to</label></li>
+          <li><input type="radio" id="q20a2" name="q20" value="C"><label for="q20a2">decorators of</label></li>
+          <li><input type="radio" id="q20a3" name="q20" value="D"><label for="q20a3">charged admission to</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="21" hidden>
+        <div class="question-text">
+          22. All of the following were mentioned in the passage as detriments to women in the business world EXCEPT…
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q21a0" name="q21" value="A"><label for="q21a0">women were required to stay at home with their families</label></li>
+          <li><input type="radio" id="q21a1" name="q21" value="B"><label for="q21a1">women lacked ability to work in business</label></li>
+          <li><input type="radio" id="q21a2" name="q21" value="C"><label for="q21a2">women faced discrimination in business</label></li>
+          <li><input type="radio" id="q21a3" name="q21" value="D"><label for="q21a3">women were not trained in business</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="22" hidden>
+        <div class="question-text">
+          23. In paragraph 2, “that” refers to…
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q22a0" name="q22" value="A"><label for="q22a0"> a woman becomes chairman of the board</label></li>
+          <li><input type="radio" id="q22a1" name="q22" value="B"><label for="q22a1"> women working hard</label></li>
+          <li><input type="radio" id="q22a2" name="q22" value="C"><label for="q22a2">women achieving advanced degrees</label></li>
+          <li><input type="radio" id="q22a3" name="q22" value="D"><label for="q22a3">women believing that business is a place for them</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="23" hidden>
+        <div class="question-text">
+          24. According to the passage, Charlotte Taylor believes that women in the 1970s…
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q23a0" name="q23" value="A"><label for="q23a0">were unrealistic about their opportunities in business management</label></li>
+          <li><input type="radio" id="q23a1" name="q23" value="B"><label for="q23a1">were still more interested in education than business opportunities</label></li>
+          <li><input type="radio" id="q23a2" name="q23" value="C"><label for="q23a2">had fewer obstacles in business than they do today</label></li>
+          <li><input type="radio" id="q23a3" name="q23" value="D"><label for="q23a3">were unable to work hard enough to succeed in business</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="24" hidden>
+        <div class="question-text">
+          25. The author mentions the “shoebox under the bed” in the third paragraph in order to…
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q24a0" name="q24" value="A"><label for="q24a0">show the frugality of women in business</label></li>
+          <li><input type="radio" id="q24a1" name="q24" value="B"><label for="q24a1">show the resourcefulness of Sandra Kurtzig</label></li>
+          <li><input type="radio" id="q24a2" name="q24" value="C"><label for="q24a2">point out that initially the financial resources of Sandra Kurtzig’s business were limited</label></li>
+          <li><input type="radio" id="q24a3" name="q24" value="D"><label for="q24a3">suggest that women are more organized than men</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="25" hidden>
+        <div class="question-text">
+          26. In the third paragraph, the word “this” refers to…
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q25a0" name="q25" value="A"><label for="q25a0">women becoming entrepreneurs</label></li>
+          <li><input type="radio" id="q25a1" name="q25" value="B"><label for="q25a1">women buying cosmetics and clothing</label></li>
+          <li><input type="radio" id="q25a2" name="q25" value="C"><label for="q25a2">women working in “women’s fields”</label></li>
+          <li><input type="radio" id="q25a3" name="q25" value="D"><label for="q25a3">women staying at home</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="26" hidden>
+        <div class="question-text">
+          27. The expression “keep tabs on” in the third paragraph is closest in meaning to…
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q26a0" name="q26" value="A"><label for="q26a0">recognize the appearance of</label></li>
+          <li><input type="radio" id="q26a1" name="q26" value="B"><label for="q26a1">keep records of</label></li>
+          <li><input type="radio" id="q26a2" name="q26" value="C"><label for="q26a2">provide transportation for</label></li>
+          <li><input type="radio" id="q26a3" name="q26" value="D"><label for="q26a3">pay the salaries of</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="27" hidden>
+        <div class="question-text">
+          28. The word “hurdles” in the last paragraph can be best replaced by…
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q27a0" name="q27" value="A"><label for="q27a0">fences</label></li>
+          <li><input type="radio" id="q27a1" name="q27" value="B"><label for="q27a1"> obstacles</label></li>
+          <li><input type="radio" id="q27a2" name="q27" value="C"><label for="q27a2">questions</label></li>
+          <li><input type="radio" id="q27a3" name="q27" value="D"><label for="q27a3">small groups</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="28" hidden>
+        <div class="question-text">
+          29. It can be inferred from the passage that the author believes that businesses operated by women are small because…
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q28a0" name="q28" value="A"><label for="q28a0">women prefer a small intimate setting</label></li>
+          <li><input type="radio" id="q28a1" name="q28" value="B"><label for="q28a1">women can't deal with money</label></li>
+          <li><input type="radio" id="q28a2" name="q28" value="C"><label for="q28a2">women are not able to borrow money easily</label></li>
+          <li><input type="radio" id="q28a3" name="q28" value="D"><label for="q28a3"> many women fail at large businesses</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="29" hidden>
+        <div class="question-text">
+          30. The author’s attitude about the future of women in business is…
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q29a0" name="q29" value="A"><label for="q29a0">skeptical</label></li>
+          <li><input type="radio" id="q29a1" name="q29" value="B"><label for="q29a1">optimistic</label></li>
+          <li><input type="radio" id="q29a2" name="q29" value="C"><label for="q29a2">frustrated</label></li>
+          <li><input type="radio" id="q29a3" name="q29" value="D"><label for="q29a3">negative</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="30" hidden>
+        <div class="question-text">
+            <h3>Reading Comprehension Passage 5</h3> <br>
+            <h3>Untuk soal nomor 31-40</h3> <br>
+            <p>The rapid transcontinental settlement and these new urban industrial circumstances of the last half of the 19th century were accompanied by the development of a national literature of great abundance and variety. Like the farmers, the townsmen, and the workers, novelists explored new subjects and expressed new levels of awareness. As a result, at the onset of World War I, the spirit and substance of American literature had evolved remarkably, just as its center of production had shifted from Boston to New York in the late 1880s and the sources of its energy to Chicago and the Midwest. No longer was it produced, if at least in its popular forms, in the main by genteel, typically provincial men from New England's old seaports. No longer were polite, well-versed, grammatically careful middle-class young people the only central audience; its manners no longer were those of drawing rooms. Its writers had become increasingly, and in many cases irreverently, democratic, its settings and characters had become strikingly diverse, and women, who had always been important as a reading public, were now important as writers. In addition, American literature had become less provincial by having its roots not only in New England but also in the South and the West and even, more recently, in the Midwest. Its variety includes the mysteries of Edgar Allan Poe as well as the domestic novels of Harriet Beecher Stowe. It is represented by the psychological studies of Henry James as well as the romantic tales of Nathaniel Hawthorne. Its range extends from the realism of Mark Twain to the naturalism of Stephen Crane and Frank Norris, and to the powerful, if often harsh, novels of Theodore Dreiser. <br><br>
+            How, one might ask, does one measure the condition Walt Whitman called for in 1867? In assessing the greatness of American literature, one must note its new richness of region as poets and novelists from the South and the West emerge. . . connecting an American past with its present, and its future. At the same time, one can also see the emergence of important new schools of writing. In all these developments there was an intense, self-conscious, and fruitful interaction with the great European works in sociology, philosophy, psychology, many of them impelled by the spirit of exposure and reform. Journalism, for example, tended to play a role in this kind of critical interaction with the new literature. American literature became, and remains, remarkably rich and vital, not only as the product of regional experiences, politics, and military power, but also its literature established itself as a producer of major works.<br><br>
+            </p>
+        <div class="question-text">
+          31. The main idea of the passage is ...
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q30a0" name="q30" value="A"><label for="q30a0">that new American literature was less provincial than the old</label></li>
+          <li><input type="radio" id="q30a1" name="q30" value="B"><label for="q30a1"> that World War I caused a dramatic change in American life</label></li>
+          <li><input type="radio" id="q30a2" name="q30" value="C"><label for="q30a2"> that new centers of culture shifted from East to West</label></li>
+          <li><input type="radio" id="q30a3" name="q30" value="D"><label for="q30a3">the most popular American writers of the time</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="31" hidden>
+        <div class="question-text">
+          32. It can be inferred from lines 1-3 that the previous passage probably discussed ...
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q31a0" name="q31" value="A"><label for="q31a0">the importance of tradition to writers</label></li>
+          <li><input type="radio" id="q31a1" name="q31" value="B"><label for="q31a1">new developments in industrialization and population shifts</label></li>
+          <li><input type="radio" id="q31a2" name="q31" value="C"><label for="q31a2">the changes and values of 19th century America</label></li>
+          <li><input type="radio" id="q31a3" name="q31" value="D"><label for="q31a3">the limitations of American literature to this time</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="32" hidden>
+        <div class="question-text">
+          33. The word "evolved" is closest in meaning to ...
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q3a0" name="q32" value="A"><label for="q32a0">became famous</label></li>
+          <li><input type="radio" id="q32a1" name="q32" value="B"><label for="q32a1">turned back</label></li>
+          <li><input type="radio" id="q32a2" name="q32" value="C"><label for="q32a2"> diminished</label></li>
+          <li><input type="radio" id="q32a3" name="q32" value="D"><label for="q32a3">changed</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="33" hidden>
+        <div class="question-text">
+          34. The word "it" refers to ...
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q33a0" name="q33" value="A"><label for="q33a0">the population</label></li>
+          <li><input type="radio" id="q33a1" name="q33" value="B"><label for="q33a1">the energy</label></li>
+          <li><input type="radio" id="q33a2" name="q33" value="C"><label for="q33a2"> American literature</label></li>
+          <li><input type="radio" id="q33a3" name="q33" value="D"><label for="q33a3">the manufacturing</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="34" hidden>
+        <div class="question-text">
+          35. The word "exotic" is closest in meaning to ...
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q34a0" name="q34" value="A"><label for="q34a0">urban</label></li>
+          <li><input type="radio" id="q34a1" name="q34" value="B"><label for="q34a1">unusual</label></li>
+          <li><input type="radio" id="q34a2" name="q34" value="C"><label for="q34a2">well-known</label></li>
+          <li><input type="radio" id="q34a3" name="q34" value="D"><label for="q34a3">old-fashioned</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="35" hidden>
+        <div class="question-text">
+          36. The author uses the word "indeed" for what purpose?
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q35a0" name="q35" value="A"><label for="q35a0">to emphasize the contrast he is making</label></li>
+          <li><input type="radio" id="q35a1" name="q35" value="B"><label for="q35a1">to refer back in an earlier paragraph</label></li>
+          <li><input type="radio" id="q35a2" name="q35" value="C"><label for="q35a2">to widen his argument</label></li>
+          <li><input type="radio" id="q35a3" name="q35" value="D"><label for="q35a3">to show a favorable attitude to these forms of literature</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="36" hidden>
+        <div class="question-text">
+          37. The phrase "these years" in line 17 refers to ...
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q36a0" name="q36" value="A"><label for="q36a0"> 1850-1900</label></li>
+          <li><input type="radio" id="q36a1" name="q36" value="B"><label for="q36a1">the early 1900s</label></li>
+          <li><input type="radio" id="q36a2" name="q36" value="C"><label for="q36a2"> the recent 1880s</label></li>
+          <li><input type="radio" id="q36a3" name="q36" value="D"><label for="q36a3"> the past years</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="37" hidden>
+        <div class="question-text">
+          38. It can be inferred from the passage that Walt Whitman ...
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q37a0" name="q37" value="A"><label for="q37a0">disliked urban life</label></li>
+          <li><input type="radio" id="q37a1" name="q37" value="B"><label for="q37a1">was disapproving of the new literature</label></li>
+          <li><input type="radio" id="q37a2" name="q37" value="C"><label for="q37a2">wrote Leaves of Grass</label></li>
+          <li><input type="radio" id="q37a3" name="q37" value="D"><label for="q37a3">was an international diplomat</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="38" hidden>
+        <div class="question-text">
+          39. All of the following can be inferred from the passage about the new literature EXCEPT ...
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q38a0" name="q38" value="A"><label for="q38a0">it was not highly regarded internationally</label></li>
+          <li><input type="radio" id="q38a1" name="q38" value="B"><label for="q38a1">it introduced new American themes, characters, and settings</label></li>
+          <li><input type="radio" id="q38a2" name="q38" value="C"><label for="q38a2"> it broke with many literary traditions of the past</label></li>
+          <li><input type="radio" id="q38a3" name="q38" value="D"><label for="q38a3">it spoke to the issue of reform and change</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="39" hidden>
+        <div class="question-text">
+          40. This passage would probably be read in which of the following academic courses?
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q39a0" name="q39" value="A"><label for="q39a0">European History</label></li>
+          <li><input type="radio" id="q39a1" name="q39" value="B"><label for="q39a1"> American Literature</label></li>
+          <li><input type="radio" id="q39a2" name="q39" value="C"><label for="q39a2">Current Events</label></li>
+          <li><input type="radio" id="q39a3" name="q39" value="D"><label for="q39a3">International Affairs</label></li>
+        </ul>
+      </section>
+
+      <div class="buttons">
+        <button type="button" id="prev-btn" disabled>Previous</button>
+        <button type="button" id="next-btn">Next</button>
+      </div>
+    </form>
+
+    <section id="score-section" class="score-section" hidden>
+      <h2>Your Score</h2>
+      <p id="score-text"></p>
+      <button id="restart-btn">Restart Test</button>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const correctAnswers = {
+        0: 'A', // significantly
+        1: 'B', // initial electronic music instrument
+        2: 'B', // a keyboard instrument
+        3: 'D', // It was the first synthesizer in the world
+        4: 'C', // the rise of electronic music worldwide
+        5: 'C', // Pickpockets
+        6: 'D', // it was not effective to stop pickpocketing
+        7: 'A', // an old
+        8: 'C', // drunkards
+        9: 'A', // they are well-trained
+        10: 'A', // they are well-trained
+        11: 'C', // Ways to keep your teeth healthy
+        12: 'C', // it can be removed by eating sweets
+        13: 'A', // it strengthens tooth enamel
+        14: 'C', // removal of plaque
+        15: 'B', // Sweets should be eaten with care
+        16: 'C', // remove
+        17: 'C', // they are able to remove the plaque from your teeth
+        18: 'B', // with the number of times you eat sweets
+        19: 'D', // Women today are opening more businesses of their own.
+        20: 'A', // not permitted in
+        21: 'B', // women lacked ability to work in business
+        22: 'A', // a woman becomes chairman of the board
+        23: 'A', // were unrealistic about their opportunities in business management
+        24: 'C', // point out that initially the financial resources of Sandra Kurtzig’s business were limited
+        25: 'C', // women working in “women’s fields”
+        26: 'B', // keep records of
+        27: 'B', // obstacles
+        28: 'C', // women are not able to borrow money easily
+        29: 'B', // optimistic
+        30: 'A', // that new American literature was less provincial than the old
+        31: 'B', // new developments in industrialization and population shifts
+        32: 'D', // changed
+        33: 'C', // American literature
+        34: 'B', // unusual
+        35: 'A', // to emphasize the contrast he is making
+        36: 'A', // 1850-1900
+        37: 'C', // wrote Leaves of Grass
+        38: 'A', // it was not highly regarded internationally
+        39: 'B', // American Literature
+      };
+
+      const questions = document.querySelectorAll('.question');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      const scoreSection = document.getElementById('score-section');
+      const scoreText = document.getElementById('score-text');
+      const explanationText = document.getElementById('explanation-text');
+      const restartBtn = document.getElementById('restart-btn');
+      const form = document.getElementById('test-form');
+      const timerEl = document.getElementById('timer');
+
+      let currentIndex = 0;
+      let timeLeft = 40 * 60; 
+      let timerInterval;
+
+      function formatTime(seconds) {
+        const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+        const s = (seconds % 60).toString().padStart(2, '0');
+        return `${m}:${s}`;
+      }
+
+      function updateTimer() {
+        timerEl.textContent = 'Waktu tersisa: ' + formatTime(timeLeft);
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          alert('Waktu habis! Tes akan disubmit secara otomatis.');
+          submitTest();
+        }
+        timeLeft--;
+      }
+
+      function showQuestion(index) {
+        questions.forEach((q, i) => q.hidden = i !== index);
+        prevBtn.disabled = index === 0;
+        nextBtn.textContent = index === questions.length - 1 ? 'Submit' : 'Next';
+      }
+
+      function getSelectedAnswer(index) {
+        const options = document.querySelectorAll(`input[name="q${index}"]`);
+        for (let option of options) {
+          if (option.checked) return option.value;
+        }
+        return null;
+      }
+
+      function calculateScore() {
+        let score = 0;
+        for (let i = 0; i < questions.length; i++) {
+          if (getSelectedAnswer(i) === correctAnswers[i]) score++;
+        }
+        return score;
+      }
+
+      nextBtn.addEventListener('click', () => {
+        const selected = getSelectedAnswer(currentIndex);
+        if (!selected) return alert('Pilih jawaban terlebih dahulu.');
+
+        if (currentIndex < questions.length - 1) {
+          currentIndex++;
+          showQuestion(currentIndex);
+        } else {
+          const score = calculateScore();
+          form.hidden = true;
+          scoreSection.hidden = false;
+          scoreText.textContent = `Kamu menjawab ${score} dari ${questions.length} soal dengan benar.`;
+        }
+      });
+
+      prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+          currentIndex--;
+          showQuestion(currentIndex);
+        }
+      });
+
+      restartBtn.addEventListener('click', () => {
+        form.reset();
+        form.hidden = false;
+        scoreSection.hidden = true;
+        currentIndex = 0;
+        timeLeft = 40 * 60;
+        showQuestion(currentIndex);
+        prevBtn.disabled = true;
+        nextBtn.disabled = false;
+        questions.forEach(section => {
+          const inputs = section.querySelectorAll('input[type=radio]');
+          inputs.forEach(input => input.disabled = false);
+        });
+        timerEl.textContent = 'Waktu tersisa: 40:00';
+        clearInterval(timerInterval);
+        timerInterval = setInterval(updateTimer, 1000);
+      });
+
+      showQuestion(currentIndex);
+      timerInterval = setInterval(updateTimer, 1000);
+    })();
+  </script>
+</body>
+</html>

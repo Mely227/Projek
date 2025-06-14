@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        :root {
+            background: radial-gradient(circle, rgb(160, 212, 255), rgb(255, 255, 255), rgb(160, 212, 255));
+            --color-bg: linear-gradient(to right, rgb(226, 242, 255), rgb(255, 255, 255));
+            --color-primary: #2563eb; /* medium blue */
+            --color-primary-dark: #1e40af;
+            --color-text-primary: #1e293b; /* dark slate */
+            --color-text-secondary: #475569; /* gray-600 */
+            --color-border: #e2e8f0;
+            --color-card-bg: #f9fafb;
+            --color-accent: #ef4444; /* bright red */
+            --color-accent-light: #fee2e2;
+            --border-radius: 1rem;
+            --transition-speed: 0.3s;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        /* Reset and base */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-family);
+            background: var(--color-bg);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3 {
+            margin: 0 0 1rem 0;
+            font-weight: 800;
+            color: var(--color-primary-dark);
+        }
+
+        h1 {
+            font-size: 3rem;
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+        }
+
+        p {
+            color: var(--color-text-secondary);
+            margin-top: 0;
+            font-size: 1rem;
+        }
+
+        a {
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        a:hover,
+        a:focus {
+            color: var(--color-primary-dark);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin-inline: auto;
+            padding: 0 1.5rem 3rem;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            background: var(--color-bg);
+            box-shadow: 0 2px 10px rgb(37 99 235 / 0.1);
+            z-index: 999;
+        }
+        nav {
+            max-width: 1200px;
+            margin-inline: auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-weight: 900;
+            font-size: 1.5rem;
+            user-select: none;
+            color: var(--color-primary);
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding-bottom: 3px;
+            position: relative;
+            transition: color var(--transition-speed);
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background-color: var(--color-primary);
+            border-radius: 10px;
+            transition: width var(--transition-speed);
+        }
+        .nav-links a:hover::after,
+        .nav-links a:focus::after {
+            width: 100%;
+        }
+        .nav-links a:hover,
+        .nav-links a:focus {
+            color: var(--color-primary-dark);
+            outline-offset: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+            padding: 6rem 1.5rem 5rem;
+            text-align: center;
+            border-radius: var(--border-radius);
+            margin-top: 2rem;
+            box-shadow: 0 12px 24px rgba(99, 102, 241, 0.15);
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            max-width: 900px;
+            margin-inline: auto;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 1rem auto 3rem;
+            color: var(--color-primary-dark);
+        }
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: 0.75rem;
+            padding: 0.9rem 2.25rem;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 700;
+            box-shadow: 0 6px 15px rgb(37 99 235 / 0.4);
+            transition: background-color var(--transition-speed), box-shadow var(--transition-speed), transform var(--transition-speed);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background-color: var(--color-primary-dark);
+            outline-offset: 3px;
+            transform: scale(1.05);
+        }
+
+        /* Main Dashboard Sections */
+        .dashboard {
+            margin-top: 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 3rem;
+        }
+        @media (max-width: 900px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Card Components */
+        .card {
+            background: var(--color-card-bg);
+            border-radius: 0.75rem;
+            padding: 2rem 2.5rem;
+            box-shadow: 0 8px 15px rgb(99 102 241 / 0.12);
+            transition: box-shadow var(--transition-speed), transform var(--transition-speed);
+        }
+        .card:hover,
+        .card:focus-within {
+            box-shadow: 0 12px 30px rgb(99 102 241 / 0.15);
+            transform: translateY(-4px);
+        }
+        .card-header {
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+            color: var(--color-primary-dark);
+            position: relative;
+            padding-left: 1rem;
+        }
+        .card-header::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 5px;
+            height: 2rem;
+            background-color: var(--color-primary);
+            border-radius: 1rem;
+        }
+
+        /* User Data List */
+        dl.user-info dt {
+            font-weight: 700;
+            margin-top: 1.4rem;
+            color: var(--color-primary-dark);
+        }
+        dl.user-info dd {
+            margin-left: 0;
+            margin-top: 0.25rem;
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+        }
+
+        /* Test History Table */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            font-size: 0.95rem;
+        }
+        table caption {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            color: var(--color-text-secondary);
+        }
+        thead th {
+            color: var(--color-primary);
+            padding-left: 1.5rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+        tbody tr {
+            background-color: var(--color-card-bg);
+            border-radius: 0.75rem;
+            transition: box-shadow var(--transition-speed), transform var(--transition-speed);
+            box-shadow: 0 4px 6px rgb(37 99 235 / 0.1);
+            cursor: default;
+        }
+        tbody tr:hover,
+        tbody tr:focus-within {
+            box-shadow: 0 10px 20px rgb(37 99 235 / 0.18);
+            transform: translateY(-3px);
+        }
+        tbody td {
+            padding: 1rem 1.5rem;
+            color: var(--color-text-secondary);
+            font-weight: 600;
+        }
+        tbody td:first-child {
+            padding-left: 2rem;
+            font-weight: 700;
+            color: var(--color-primary-dark);
+        }
+
+        /* Score badges */
+        .score-badge {
+            background-color: var(--color-primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            font-weight: 700;
+            border-radius: 9999px;
+            user-select: none;
+            min-width: 45px;
+            text-align: center;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        /* Profile Edit Form */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        label {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--color-primary-dark);
+        }
+        input[type="text"],
+        input[type="email"] {
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: 2px solid var(--color-border);
+            transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+            font-family: var(--font-family);
+            width: 100%;
+            max-width: 500px;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 10px rgb(37 99 235 / 0.45);
+        }
+
+        .btn-save {
+            width: fit-content;
+            background-color: var(--color-primary);
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgb(37 99 235 / 0.4);
+            transition: background-color var(--transition-speed), transform var(--transition-speed);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .btn-save:hover,
+        .btn-save:focus {
+            background-color: var(--color-primary-dark);
+            transform: scale(1.05);
+            outline-offset: 4px;
+        }
+
+        .btn-start-test {
+            width: fit-content;
+            background-color: var(--color-accent); /* Warna berbeda untuk membedakan */
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgb(239 68 68 / 0.4);
+            transition: background-color var(--transition-speed), transform var(--transition-speed);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .btn-start-test:hover,
+        .btn-start-test:focus {
+            background-color: var(--color-accent-light);
+            color: var(--color-primary-dark);
+            transform: scale(1.05);
+            outline-offset: 4px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: flex-start;
+            gap: 1rem;
+            max-width: 500px; /* Menyesuaikan dengan lebar input */
+        }
+
+        /* Accessibility helper */
+        .sr-only {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            white-space: nowrap !important;
+            border: 0 !important;
+        }
+
+        /* Error message styling */
+        .error-message {
+            color: var(--color-accent);
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: block;
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav aria-label="Navigasi utama">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <img src="Imange/logo.png.png" alt="Logo Free TOEFL" style="height: 90px;">
+                <div class="logo" aria-label="Dashboard Latihan TOEFL">TOEFL <span style="color: var(--color-accent)">.Try</span></div>
+            </div>
+            <div class="nav-links">
+                <a href="Beranda.html" tabindex="0" role="link" style="font-size: 18px;">Beranda</a>
+                <a href="Dash.html" tabindex="0" role="link" style="font-size: 18px;">Dashboard</a>
+                <a href="Test.html" tabindex="0" role="link" style="font-size: 18px;">Test</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="dashboard" role="region" aria-label="Konten dashboard utama" tabindex="0">
+            <section id="user-data" class="card" aria-labelledby="user-data-title" tabindex="0">
+                <h2 id="user-data-title" class="card-header">Data Pengguna</h2>
+                <dl class="user-info">
+                    <dt>Nama:</dt>
+                    <dd id="display-name" aria-live="polite"></dd>
+                    <dt>Email:</dt>
+                    <dd id="display-email" aria-live="polite"></dd>
+                    <dt>Asal Sekolah/Universitas:</dt>
+                    <dd id="display-school" aria-live="polite"></dd>
+                </dl>
+            </section>  
+
+            <section id="test-history" class="card" aria-labelledby="test-history-title" tabindex="0">
+                <h2 id="test-history-title" class="card-header">Riwayat Tes & Skor</h2>
+                <table aria-describedby="test-history-desc" role="table">
+                    <caption id="test-history-desc" class="sr-only">Daftar tes latihan TOEFL yang telah diselesaikan dengan skor</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Tanggal</th>
+                            <th scope="col">Jenis Tes</th>
+                            <th scope="col">Skor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="test-history-body">
+                        <tr tabindex="0">
+                            <td>2025-06-01</td>
+                            <td>Listening</td>
+                            <td><span class="score-badge" aria-label="Skor 28">28</span></td>
+                        </tr>
+                        <tr tabindex="0">
+                            <td>2025-06-02</td>
+                            <td>Structure</td>
+                            <td><span class="score-badge" aria-label="Skor 30">30</span></td>
+                        </tr>
+                        <tr tabindex="0">
+                            <td>2025-06-03</td>
+                            <td>Reading</td>
+                            <td><span class="score-badge" aria-label="Skor 25">25</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+
+        <section id="profile-edit" class="card" aria-labelledby="profile-edit-title" tabindex="0" style="margin-top: 4rem;">
+            <h2 id="profile-edit-title" class="card-header">Edit Profil</h2>
+            <form id="profile-form" aria-describedby="profile-form-desc" novalidate>
+                <p id="profile-form-desc" class="sr-only">Form untuk mengedit informasi profil pengguna</p>
+                <div class="form-group">
+                    <label for="name-input">Nama</label>
+                    <input type="text" id="name-input" name="name" aria-required="true" aria-describedby="name-error" />
+                    <span id="name-error" class="error-message" role="alert"></span>
+                </div>
+                <div class="form-group">
+                    <label for="email-input">Email</label>
+                    <input type="email" id="email-input" name="email" required autocomplete="email" aria-required="true" aria-describedby="email-error" />
+                    <span id="email-error" class="error-message" role="alert"></span>
+                </div>
+                <div class="form-group">
+                    <label for="school-input">Asal Sekolah/Universitas</label>
+                    <input type="text" id="school-input" name="school" required autocomplete="organization" aria-required="true" aria-describedby="school-error" />
+                    <span id="school-error" class="error-message" role="alert"></span>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="btn-save">SIMPAN PERUBAHAN</button>
+                    <a href="Test 1.html"><button type="button" class="btn-start-test">MULAI TES</button></a>
+                </div>
+            </form>
+        </section>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+  const nameInput = document.getElementById('name-input');
+  const emailInput = document.getElementById('email-input');
+  const schoolInput = document.getElementById('school-input');
+  const displayName = document.getElementById('display-name');
+  const displayEmail = document.getElementById('display-email');
+  const displaySchool = document.getElementById('display-school');
+
+  const savedUserData = JSON.parse(localStorage.getItem('userData'));
+  if (savedUserData) {
+    nameInput.value = savedUserData.name || '';
+    emailInput.value = savedUserData.email || '';
+    schoolInput.value = savedUserData.school || '';
+    displayName.textContent = savedUserData.name || '';
+    displayEmail.textContent = savedUserData.email || '';
+    displaySchool.textContent = savedUserData.school || '';
+  }
+});
+
+const profileForm = document.getElementById('profile-form');
+const nameInput = document.getElementById('name-input');
+const emailInput = document.getElementById('email-input');
+const schoolInput = document.getElementById('school-input');
+
+function showError(input, message) {
+  const errorSpan = document.getElementById(input.id + '-error');
+  if (!errorSpan) return;
+  if (message) {
+    errorSpan.textContent = message;
+    errorSpan.classList.remove('sr-only');
+    input.setAttribute('aria-invalid', 'true');
+  } else {
+    errorSpan.textContent = '';
+    errorSpan.classList.add('sr-only');
+    input.removeAttribute('aria-invalid');
+  }
+}
+
+function validateEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+profileForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  let valid = true;
+
+  // Validasi nama
+  if (!nameInput.value.trim()) {
+    showError(nameInput, 'Nama tidak boleh kosong.');
+    valid = false;
+  } else {
+    showError(nameInput, '');
+  }
+
+  // Validasi email
+  if (!emailInput.value.trim()) {
+    showError(emailInput, 'Email tidak boleh kosong.');
+    valid = false;
+  } else if (!validateEmail(emailInput.value.trim())) {
+    showError(emailInput, 'Format email tidak valid.');
+    valid = false;
+  } else {
+    showError(emailInput, '');
+  }
+
+  // Validasi asal sekolah
+  if (!schoolInput.value.trim()) {
+    showError(schoolInput, 'Asal Sekolah/Universitas tidak boleh kosong.');
+    valid = false;
+  } else {
+    showError(schoolInput, '');
+  }
+
+  if (!valid) {
+    console.log('Validasi gagal, data tidak diperbarui.');
+    return;
+  }
+
+  const userData = {
+    name: nameInput.value.trim(),
+    email: emailInput.value.trim(),
+    school: schoolInput.value.trim(),
+  };
+
+  localStorage.setItem('userData', JSON.stringify(userData));
+
+  // Update tampilan data
+  document.getElementById('display-name').textContent = userData.name;
+  document.getElementById('display-email').textContent = userData.email;
+  document.getElementById('display-school').textContent = userData.school;
+
+  // Feedback visual
+  const saveBtn = profileForm.querySelector('button[type="submit"]');
+  if (saveBtn) {
+    const originalText = saveBtn.textContent;
+    saveBtn.textContent = 'Tersimpan!';
+    saveBtn.disabled = true;
+
+    setTimeout(() => {
+      saveBtn.textContent = originalText;
+      saveBtn.disabled = false;
+    }, 2000);
+  }
+
+  console.log('Data pengguna diperbarui:', userData);
+});
+    </script>
+</body>
+</html>

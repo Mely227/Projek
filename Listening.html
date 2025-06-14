@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projek</title>
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      background: radial-gradient(circle, rgb(160, 212, 255), rgb(255, 255, 255), rgb(160, 212, 255));
+      --color-bg: radial-gradient(circle, rgb(160, 212, 255), rgb(255, 255, 255));
+      --color-primary: #2563eb;
+      --color-primary-dark: #1e40af;
+      --color-text-primary: #1e293b;
+      --color-text-secondary: #475569;
+      --color-card-bg: #ffffffcc;
+      --color-accent: #ef4444;
+      --border-radius: 16px;
+      --transition-speed: 0.3s;
+      --font-family: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background: var(--color-bg);
+      color: var(--color-text-primary);
+      line-height: 1.6;
+      font-size: 18px;
+    }
+
+    a {
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--color-bg);
+      box-shadow: 0 2px 10px rgb(37 99 235 / 0.1);
+      z-index: 999;
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-weight: 900;
+      font-size: 1.75rem;
+      color: var(--color-primary);
+    }
+
+    .logo span {
+      color: var(--color-accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      font-weight: 600;
+      font-size: 1rem;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background-color: var(--color-primary);
+      transition: width var(--transition-speed);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: var(--color-card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--color-primary-dark);
+      margin-bottom: 1.5rem;
+    }
+
+    #audio-player {
+     width: 100%; /* Atau misalnya: 400px, 600px sesuai kebutuhan */
+     max-width: 800px;
+     display: block;
+     margin: 0 auto;
+    }
+
+
+    /* Timer style */
+    #timer {
+      font-weight: 700;
+      color: var(--color-accent);
+      font-size: 1.25rem;
+      text-align: center;
+      user-select: none;
+      letter-spacing: 1px;
+    }
+
+    .question {
+      margin-bottom: 2rem;
+    }
+
+    .question-text {
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .options {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    input[type="radio"] {
+      display: none;
+    }
+
+    label {
+      display: block;
+      padding: 12px 16px;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    input[type="radio"]:checked + label {
+      background-color: var(--color-primary);
+      color: white;
+      border-color: var(--color-primary);
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+
+    button {
+      background-color: var(--color-primary);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    button:disabled {
+      background-color: #a0aec0;
+      cursor: not-allowed;
+    }
+
+    .score-section {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 1rem;
+      }
+
+      .buttons {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <img src="Imange/logo.png.png" alt="Logo Free TOEFL" style="height: 90px;">
+        <div class="logo">TOEFL <span style="color: var(--color-accent)">.Try</span></div>
+      </div>
+      <div class="nav-links">
+        <a href="Beranda.html">Beranda</a>
+        <a href="Dash.html">Dashboard</a>
+        <a href="Test.html">Test</a>
+      </div>
+    </nav>
+  </header>
+  
+
+  <main class="container">
+    <h1>TOEFL Listening Test</h1>
+    <div id="timer" aria-live="polite" aria-label="Waktu tersisa untuk mengerjakan: 25 menit">Waktu tersisa: 25:00</div>
+    <form id="test-form" novalidate>
+    <br>
+      <section class="question" data-index="0">
+        <div class="question-text">
+           <audio controls id="audio-player">
+            <source src="Audio/1.mp3" type="audio/mp3">
+           </audio>
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q0a0" name="q0" value="A"><label for="q0a0">Hand the man a drink.</label></li>
+          <li><input type="radio" id="q0a1" name="q0" value="B"><label for="q0a1">Drink a diet soft drink.</label></li>
+          <li><input type="radio" id="q0a2" name="q0" value="C"><label for="q0a2">Go to the store to buy a drink.</label></li>
+          <li><input type="radio" id="q0a3" name="q0" value="D"><label for="q0a3">Go without a soft drink.</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="1" hidden>
+        <div class="question-text">
+          <audio controls id="audio-player">
+            <source src="Audio/2.mp3" type="audio/mp3">
+           </audio>
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q1a0" name="q1" value="A"><label for="q1a0">They both liked it.</label></li>
+          <li><input type="radio" id="q1a1" name="q1" value="B"><label for="q1a1">Neither liked it</label></li>
+          <li><input type="radio" id="q1a2" name="q1" value="C"><label for="q1a2">The mother didn’t like it, but the father did.</label></li>
+          <li><input type="radio" id="q1a3" name="q1" value="D"><label for="q1a3">The mother didn’t like it because it wasn’t in English.</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="2" hidden>
+        <div class="question-text">
+          <audio controls id="audio-player">
+            <source src="Audio/3.mp3" type="audio/mp3">
+           </audio>
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q2a0" name="q2" value="A"><label for="q2a0">A supermarket.</label></li>
+          <li><input type="radio" id="q2a1" name="q2" value="B"><label for="q2a1">A department store.</label></li>
+          <li><input type="radio" id="q2a2" name="q2" value="C"><label for="q2a2">A pharmacy.</label></li>
+          <li><input type="radio" id="q2a3" name="q2" value="D"><label for="q2a3">A car repair shop.</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="3" hidden>
+        <div class="question-text">
+          <audio controls id="audio-player">
+            <source src="Audio/4.mp3" type="audio/mp3">
+           </audio>
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q3a0" name="q3" value="A"><label for="q3a0">The teacher postponed the conference.</label></li>
+          <li><input type="radio" id="q3a1" name="q3" value="B"><label for="q3a1">There won’t be a test this afternoon.</label></li>
+          <li><input type="radio" id="q3a2" name="q3" value="C"><label for="q3a2">The students will be attending the conference.</label></li>
+          <li><input type="radio" id="q3a3" name="q3" value="D"><label for="q3a3">The students took a science test that afternoon.</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="4" hidden>
+        <div class="question-text">
+          <audio controls id="audio-player">
+            <source src="Audio/5.mp3" type="audio/mp3">
+           </audio>
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q4a0" name="q4" value="A"><label for="q4a0">The program was on too late.</label></li>
+          <li><input type="radio" id="q4a1" name="q4" value="B"><label for="q4a1">The rain didn’t let up until after the speech.</label></li>
+          <li><input type="radio" id="q4a2" name="q4" value="C"><label for="q4a2">He doesn’t like the president.</label></li>
+          <li><input type="radio" id="q4a3" name="q4" value="D"><label for="q4a3">He had a late class.</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="5" hidden>
+        <div class="question-text">
+          <audio controls id="audio-player">
+            <source src="Audio/6.mp3" type="audio/mp3">
+           </audio>
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q5a0" name="q5" value="A"><label for="q5a0">Lawyer-client.</label></li>
+          <li><input type="radio" id="q5a1" name="q5" value="B"><label for="q5a1">Doctor-patient.</label></li>
+          <li><input type="radio" id="q5a2" name="q5" value="C"><label for="q5a2">Dentist-patient.</label></li>
+          <li><input type="radio" id="q5a3" name="q5" value="D"><label for="q5a3">Bank teller-customer.</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="6" hidden>
+        <div class="question-text">
+          <audio controls id="audio-player">
+            <source src="Audio/7.mp3" type="audio/mp3">
+           </audio>
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q6a0" name="q6" value="A"><label for="q6a0">There is a quieter place available.</label></li>
+          <li><input type="radio" id="q6a1" name="q6" value="B"><label for="q6a1">He doesn’t care for tennis matches.</label></li>
+          <li><input type="radio" id="q6a2" name="q6" value="C"><label for="q6a2">The noise should die down shortly.</label></li>
+          <li><input type="radio" id="q6a3" name="q6" value="D"><label for="q6a3">It’s even louder in the meeting room.</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="7" hidden>
+        <div class="question-text">
+          <audio controls id="audio-player">
+            <source src="Audio/8.mp3" type="audio/mp3">
+           </audio>
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q7a0" name="q7" value="A"><label for="q7a0">She’s not hungry.</label></li>
+          <li><input type="radio" id="q7a1" name="q7" value="B"><label for="q7a1">She’s at the orthodontist’s.</label></li>
+          <li><input type="radio" id="q7a2" name="q7" value="C"><label for="q7a2">The food tastes like an old shoe.</label></li>
+          <li><input type="radio" id="q7a3" name="q7" value="D"><label for="q7a3">She’s in too much pain.</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="8" hidden>
+        <div class="question-text">
+          <audio controls id="audio-player">
+            <source src="Audio/9.mp3" type="audio/mp3">
+           </audio>
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q8a0" name="q8" value="A"><label for="q8a0">Packing her own groceries.</label></li>
+          <li><input type="radio" id="q8a1" name="q8" value="B"><label for="q8a1">A lack of variety in meats.</label></li>
+          <li><input type="radio" id="q8a2" name="q8" value="C"><label for="q8a2">The unreasonable prices.</label></li>
+          <li><input type="radio" id="q8a3" name="q8" value="D"><label for="q8a3">The attitude of the employees.</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="9" hidden>
+        <div class="question-text">
+          <audio controls id="audio-player">
+            <source src="Audio/10.mp3" type="audio/mp3">
+           </audio>
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q9a0" name="q9" value="A"><label for="q9a0">She does not feel well enough to return to work.</label></li>
+          <li><input type="radio" id="q9a1" name="q9" value="B"><label for="q9a1">She hates her work.</label></li>
+          <li><input type="radio" id="q9a2" name="q9" value="C"><label for="q9a2">She hasn’t finished the assignment.</label></li>
+          <li><input type="radio" id="q9a3" name="q9" value="D"><label for="q9a3">She is still unable to walk.</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="10" hidden>
+        <div class="question-text">
+          <audio controls id="audio-player">
+            <source src="Audio/11.mp3" type="audio/mp3">
+           </audio>
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q10a0" name="q10" value="A"><label for="q10a0">Home economics.</label></li>
+          <li><input type="radio" id="q10a1" name="q10" value="B"><label for="q10a1">Business administration.</label></li>
+          <li><input type="radio" id="q10a2" name="q10" value="C"><label for="q10a2">Microbiology.</label></li>
+          <li><input type="radio" id="q10a3" name="q10" value="D"><label for="q10a3">History.</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="11" hidden>
+        <div class="question-text">
+          <audio controls id="audio-player">
+            <source src="Audio/12.mp3" type="audio/mp3">
+           </audio>
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q11a0" name="q11" value="A"><label for="q11a0">It is no longer delicious.</label></li>
+          <li><input type="radio" id="q11a1" name="q11" value="B"><label for="q11a1">It makes delicious butter.</label></li>
+          <li><input type="radio" id="q11a2" name="q11" value="C"><label for="q11a2">It is the best cheese.</label></li>
+          <li><input type="radio" id="q11a3" name="q11" value="D"><label for="q11a3">There are many better cheeses.</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="12" hidden>
+        <div class="question-text">
+           <audio controls id="audio-player">
+            <source src="Audio/13.mp3" type="audio/mp3">
+           </audio>
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q12a0" name="q12" value="A"><label for="q12a0">The game is temporarily delayed because of rain.</label></li>
+          <li><input type="radio" id="q12a1" name="q12" value="B"><label for="q12a1">There will be no game if it rains.</label></li>
+          <li><input type="radio" id="q12a2" name="q12" value="C"><label for="q12a2">There will be a game regardless of the weather.</label></li>
+          <li><input type="radio" id="q12a3" name="q12" value="D"><label for="q12a3">It rains every time there is a game.</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="13" hidden>
+        <div class="question-text">
+          <audio controls id="audio-player">
+            <source src="Audio/14.mp3" type="audio/mp3">
+           </audio>
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q13a0" name="q13" value="A"><label for="q13a0">She knew the answer to the question.</label></li>
+          <li><input type="radio" id="q13a1" name="q13" value="B"><label for="q13a1">She had read the material, but she didn’t know the answer.</label></li>
+          <li><input type="radio" id="q13a2" name="q13" value="C"><label for="q13a2">She was not prepared for class.</label></li>
+          <li><input type="radio" id="q13a3" name="q13" value="D"><label for="q13a3">Even though she hadn’t read the material, she knew the answer.</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="14" hidden>
+        <div class="question-text">
+          <audio controls id="audio-player">
+            <source src="Audio/15.mp3" type="audio/mp3">
+           </audio>
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q14a0" name="q14" value="A"><label for="q14a0">Thirty people returned the evaluation forms.</label></li>
+          <li><input type="radio" id="q14a1" name="q14" value="B"><label for="q14a1">Sixty people filled out the evaluation forms.</label></li>
+          <li><input type="radio" id="q14a2" name="q14" value="C"><label for="q14a2">Eighty people returned their forms.</label></li>
+          <li><input type="radio" id="q14a3" name="q14" value="D"><label for="q14a3">Only thirty people received the evaluation forms.</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="15" hidden>
+        <div class="question-text">
+          <audio controls id="audio-player">
+            <source src="Audio/16.mp3" type="audio/mp3">
+           </audio>
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q15a0" name="q15" value="A"><label for="q15a0">All the lawyer’s preparation did no good.</label></li>
+          <li><input type="radio" id="q15a1" name="q15" value="B"><label for="q15a1">The lawyer prepared nothing for the case.</label></li>
+          <li><input type="radio" id="q15a2" name="q15" value="C"><label for="q15a2">It wasn’t work for the lawyer to prepare for the case.</label></li>
+          <li><input type="radio" id="q15a3" name="q15" value="D"><label for="q15a3">The lawyer didn’t work to prepare for the case.</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="16" hidden>
+        <div class="question-text">
+          <audio controls id="audio-player">
+            <source src="Audio/17.mp3" type="audio/mp3">
+           </audio>
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q16a0" name="q16" value="A"><label for="q16a0">The history class begins next week.</label></li>
+          <li><input type="radio" id="q16a1" name="q16" value="B"><label for="q16a1">He thinks the papers should be turned in next week.</label></li>
+          <li><input type="radio" id="q16a2" name="q16" value="C"><label for="q16a2">He has already done the paper for next week.</label></li>
+          <li><input type="radio" id="q16a3" name="q16" value="D"><label for="q16a3">The papers are not due next week.</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="17" hidden>
+        <div class="question-text">
+          <audio controls id="audio-player">
+            <source src="Audio/18.mp3" type="audio/mp3">
+           </audio>
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q17a0" name="q17" value="A"><label for="q17a0">He’s not really happy.</label></li>
+          <li><input type="radio" id="q17a1" name="q17" value="B"><label for="q17a1">The contractor’s work was satisfactory.</label></li>
+          <li><input type="radio" id="q17a2" name="q17" value="C"><label for="q17a2">He would rather work with the contractor himself.</label></li>
+          <li><input type="radio" id="q17a3" name="q17" value="D"><label for="q17a3">He was already contacted about the work.</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="18" hidden>
+        <div class="question-text">
+          <audio controls id="audio-player">
+            <source src="Audio/19.mp3" type="audio/mp3">
+           </audio>
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q18a0" name="q18" value="A"><label for="q18a0">The man should try another type of paper.</label></li>
+          <li><input type="radio" id="q18a1" name="q18" value="B"><label for="q18a1">The man should locate a typist tomorrow morning.</label></li>
+          <li><input type="radio" id="q18a2" name="q18" value="C"><label for="q18a2">The man should make a tape in the morning.</label></li>
+          <li><input type="radio" id="q18a3" name="q18" value="D"><label for="q18a3">The man should complete the paper without help.</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="19" hidden>
+        <div class="question-text">
+          <audio controls id="audio-player">
+            <source src="Audio/20.mp3" type="audio/mp3">
+           </audio>
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q19a0" name="q19" value="A"><label for="q19a0">She’d like some pie.</label></li>
+          <li><input type="radio" id="q19a1" name="q19" value="B"><label for="q19a1">It’s easy to buy it.</label></li>
+          <li><input type="radio" id="q19a2" name="q19" value="C"><label for="q19a2">The task the man’s working on isn’t difficult.</label></li>
+          <li><input type="radio" id="q19a3" name="q19" value="D"><label for="q19a3">It’s easier to prepare pie than do what the man is doing.</label></li>
+        </ul>
+      </section>
+
+      <div class="buttons">
+        <button type="button" id="prev-btn" disabled>Previous</button>
+        <button type="button" id="next-btn">Next</button>
+      </div>
+    </form>
+
+    <section id="score-section" class="score-section" hidden>
+      <h2>Your Score</h2>
+      <p id="score-text"></p>
+      <button id="restart-btn">Restart Test</button>
+      <a href="Test 2.html"><button id="restart-btn">Next-Structure</button></a>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const correctAnswers = {
+        0: 'D', // Go without a soft drink
+        1: 'C', // The mother didn’t like it, but the father did
+        2: 'C', // A pharmacy
+        3: 'B', // There won’t be a test this afternoon
+        4: 'D', // He had a late class
+        5: 'A', // Lawyer-client
+        6: 'A', // There is a quieter place available
+        7: 'D', // She’s in too much pain
+        8: 'A', // Packing her own groceries
+        9: 'A', // She does not feel well enough to return to work
+        10: 'B', // Business administration
+        11: 'C', // It is the best cheese
+        12: 'C', // There will be a game regardless of the weather
+        13: 'C', // She was not prepared for class
+        14: 'A', // Thirty people returned the evaluation forms
+        15: 'A', // All the lawyer’s preparation did no good
+        16: 'B', // He thinks the papers should be turned in next week
+        17: 'A', // He’s not really happy
+        18: 'D', // The man should complete the paper without help
+        19: 'C'  // The task the man’s working on isn’t difficult
+      };
+
+      const questions = document.querySelectorAll('.question');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      const scoreSection = document.getElementById('score-section');
+      const scoreText = document.getElementById('score-text');
+      const explanationText = document.getElementById('explanation-text');
+      const restartBtn = document.getElementById('restart-btn');
+      const form = document.getElementById('test-form');
+      const timerEl = document.getElementById('timer');
+
+      let currentIndex = 0;
+      let timeLeft = 25 * 60; // 25 minutes in seconds
+      let timerInterval;
+      function formatTime(seconds) {
+        const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+        const s = (seconds % 60).toString().padStart(2, '0');
+        return `${m}:${s}`;
+      }
+
+      function updateTimer() {
+        timerEl.textContent = 'Waktu tersisa: ' + formatTime(timeLeft);
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          alert('Waktu habis! Tes akan disubmit secara otomatis.');
+          submitTest();
+        }
+        timeLeft--;
+      }
+
+      function showQuestion(index) {
+        questions.forEach((q, i) => q.hidden = i !== index);
+        prevBtn.disabled = index === 0;
+        nextBtn.textContent = index === questions.length - 1 ? 'Submit' : 'Next';
+      }
+
+      function getSelectedAnswer(index) {
+        const options = document.querySelectorAll(`input[name="q${index}"]`);
+        for (let option of options) {
+          if (option.checked) return option.value;
+        }
+        return null;
+      }
+
+      
+
+      function calculateScore() {
+        let score = 0;
+        for (let i = 0; i < questions.length; i++) {
+          if (getSelectedAnswer(i) === correctAnswers[i]) score++;
+        }
+        return score;
+      }
+
+      nextBtn.addEventListener('click', () => {
+        const selected = getSelectedAnswer(currentIndex);
+        if (!selected) return alert('Pilih jawaban terlebih dahulu.');
+
+        if (currentIndex < questions.length - 1) {
+          currentIndex++;
+          showQuestion(currentIndex);
+        } else {
+          const score = calculateScore();
+          form.hidden = true;
+          scoreSection.hidden = false;
+          scoreText.textContent = `You answered ${score} out of ${questions.length} questions correctly.`;
+        }
+      });
+
+      prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+          currentIndex--;
+          showQuestion(currentIndex);
+        }
+      });
+
+      restartBtn.addEventListener('click', () => {
+        form.reset();
+        form.hidden = false;
+        scoreSection.hidden = true;
+        currentIndex = 0;
+        timeLeft = 25 * 60;
+        showQuestion(currentIndex);
+        prevBtn.disabled = true;
+        nextBtn.disabled = false;
+        questions.forEach(section => {
+          const inputs = section.querySelectorAll('input[type=radio]');
+          inputs.forEach(input => input.disabled = false);
+        });
+        timerEl.textContent = 'Waktu tersisa: 25:00';
+        clearInterval(timerInterval);
+        timerInterval = setInterval(updateTimer, 1000);
+      });
+
+      showQuestion(currentIndex);
+      timerInterval = setInterval(updateTimer, 1000);
+    })();
+  </script>
+</body>
+</html>

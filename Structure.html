@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projek</title>
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      background: radial-gradient(circle, rgb(160, 212, 255), rgb(255, 255, 255), rgb(160, 212, 255));
+      --color-bg: radial-gradient(circle, rgb(160, 212, 255), rgb(255, 255, 255));
+      --color-primary: #2563eb;
+      --color-primary-dark: #1e40af;
+      --color-text-primary: #1e293b;
+      --color-text-secondary: #475569;
+      --color-card-bg: #ffffffcc;
+      --color-accent: #ef4444;
+      --border-radius: 16px;
+      --transition-speed: 0.3s;
+      --font-family: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background: var(--color-bg);
+      color: var(--color-text-primary);
+      line-height: 1.6;
+      font-size: 18px;
+    }
+
+    a {
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--color-bg);
+      box-shadow: 0 2px 10px rgb(37 99 235 / 0.1);
+      z-index: 999;
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-weight: 900;
+      font-size: 1.75rem;
+      color: var(--color-primary);
+    }
+
+    .logo span {
+      color: var(--color-accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      font-weight: 600;
+      font-size: 1rem;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background-color: var(--color-primary);
+      transition: width var(--transition-speed);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: var(--color-card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--color-primary-dark);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Timer style */
+    #timer {
+      font-weight: 700;
+      color: var(--color-accent);
+      font-size: 1.25rem;
+      text-align: center;
+      user-select: none;
+      letter-spacing: 1px;
+    }
+
+    .question {
+      margin-bottom: 2rem;
+    }
+
+    .question-text {
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .options {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    input[type="radio"] {
+      display: none;
+    }
+
+    label {
+      display: block;
+      padding: 12px 16px;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    input[type="radio"]:checked + label {
+      background-color: var(--color-primary);
+      color: white;
+      border-color: var(--color-primary);
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+
+    button {
+      background-color: var(--color-primary);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    button:disabled {
+      background-color: #a0aec0;
+      cursor: not-allowed;
+    }
+
+    .score-section {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 1rem;
+      }
+
+      .buttons {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <img src="Imange/logo.png.png" alt="Logo Free TOEFL" style="height: 90px;">
+        <div class="logo">TOEFL <span style="color: var(--color-accent)">.Try</span></div>
+      </div>
+      <div class="nav-links">
+        <a href="Beranda.html">Beranda</a>
+        <a href="Dash.html">Dashboard</a>
+        <a href="Test.html">Test</a>
+      </div>
+    </nav>
+  </header>
+  
+
+  <main class="container">
+    <h1>TOEFL Structure Test</h1>
+    <div id="timer" aria-live="polite" aria-label="Waktu tersisa untuk mengerjakan: 25 menit">Waktu tersisa: 30:00</div>
+    <form id="test-form" novalidate>
+    <br>
+      <section class="question" data-index="0">
+        <div class="question-text">
+            Amanda Way's career as a social reformer____ in 1851 when, at an antislavery meeting in Indiana, she called for a state woman's rights convention
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q0a0" name="q0" value="A"><label for="q0a0">begin</label></li>
+          <li><input type="radio" id="q0a1" name="q0" value="B"><label for="q0a1">began</label></li>
+          <li><input type="radio" id="q0a2" name="q0" value="C"><label for="q0a2">have begun</label></li>
+          <li><input type="radio" id="q0a3" name="q0" value="D"><label for="q0a3">to have begun</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="1" hidden>
+        <div class="question-text">
+          The celesta, an orchestral percussion instrument, resembles ___.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q1a0" name="q1" value="A"><label for="q1a0">a small upright piano</label></li>
+          <li><input type="radio" id="q1a1" name="q1" value="B"><label for="q1a1">how a small upright piano</label></li>
+          <li><input type="radio" id="q1a2" name="q1" value="C"><label for="q1a2">a small upright piano is</label></li>
+          <li><input type="radio" id="q1a3" name="q1" value="D"><label for="q1a3">as a small upright piano</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="2" hidden>
+        <div class="question-text">
+          Thomas Paine, _____, wrote Common Sense, a pamphlet that identified the American colonies with the cause of liberty.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q2a0" name="q2" value="A"><label for="q2a0">writer of eloquent</label></li>
+          <li><input type="radio" id="q2a1" name="q2" value="B"><label for="q2a1">whose eloquent writing</label></li>
+          <li><input type="radio" id="q2a2" name="q2" value="C"><label for="q2a2">an eloquent writer</label></li>
+          <li><input type="radio" id="q2a3" name="q2" value="D"><label for="q2a3">writing eloquent</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="3" hidden>
+        <div class="question-text">
+          Although beavers rarely remain submerged for more than two minutes, they can stay underwater ___ fifteen minutes before having to surface for air.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q3a0" name="q3" value="A"><label for="q3a0">as long</label></li>
+          <li><input type="radio" id="q3a1" name="q3" value="B"><label for="q3a1">as long as</label></li>
+          <li><input type="radio" id="q3a2" name="q3" value="C"><label for="q3a2">so long</label></li>
+          <li><input type="radio" id="q3a3" name="q3" value="D"><label for="q3a3">so long that</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="4" hidden>
+        <div class="question-text">
+          Protein digestion begins in the stomach ____ ends in the small intestine.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q4a0" name="q4" value="A"><label for="q4a0">while</label></li>
+          <li><input type="radio" id="q4a1" name="q4" value="B"><label for="q4a1">and</label></li>
+          <li><input type="radio" id="q4a2" name="q4" value="C"><label for="q4a2">how</label></li>
+          <li><input type="radio" id="q4a3" name="q4" value="D"><label for="q4a3">because</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="5" hidden>
+        <div class="question-text">
+          When natural gas burns, its ___ into atoms of carbon and hydrogen.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q5a0" name="q5" value="A"><label for="q5a0">hydrocarbon molecules, breaking up</label></li>
+          <li><input type="radio" id="q5a1" name="q5" value="B"><label for="q5a1">broke up by hydrocarbon molecules</label></li>
+          <li><input type="radio" id="q5a2" name="q5" value="C"><label for="q5a2">hydrocarbon molecules break up</label></li>
+          <li><input type="radio" id="q5a3" name="q5" value="D"><label for="q5a3">broken up hydrocarbon molecules</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="6" hidden>
+        <div class="question-text">
+           _____ ballet dancers learn five basic positions for the arms and feet.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q6a0" name="q6" value="A"><label for="q6a0">All of</label></li>
+          <li><input type="radio" id="q6a1" name="q6" value="B"><label for="q6a1">Of every</label></li>
+          <li><input type="radio" id="q6a2" name="q6" value="C"><label for="q6a2">All</label></li>
+          <li><input type="radio" id="q6a3" name="q6" value="D"><label for="q6a3">Every</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="7" hidden>
+        <div class="question-text">
+          Some colonies of bryozoans, small marine animals, form ___ with trailing stems.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q7a0" name="q7" value="A"><label for="q7a0">creeping colonies</label></li>
+          <li><input type="radio" id="q7a1" name="q7" value="B"><label for="q7a1">which colonies creep</label></li>
+          <li><input type="radio" id="q7a2" name="q7" value="C"><label for="q7a2">creeping colonies are</label></li>
+          <li><input type="radio" id="q7a3" name="q7" value="D"><label for="q7a3">colonies creep</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="8" hidden>
+        <div class="question-text">
+          Ruth Bader Ginsburg argued six women’s rights cases before the United States Supreme Court in the 1970’s, ____
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q8a0" name="q8" value="A"><label for="q8a0">of five winning them</label></li>
+          <li><input type="radio" id="q8a1" name="q8" value="B"><label for="q8a1">five winning of them</label></li>
+          <li><input type="radio" id="q8a2" name="q8" value="C"><label for="q8a2">of them five winning</label></li>
+          <li><input type="radio" id="q8a3" name="q8" value="D"><label for="q8a3">winning five of them</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="9" hidden>
+        <div class="question-text">
+          Natural selection is defined as the process ___ the course of evolution by preserving those traits best adapted for an organism’s survival.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q9a0" name="q9" value="A"><label for="q9a0">to which directs</label></li>
+          <li><input type="radio" id="q9a1" name="q9" value="B"><label for="q9a1">of which directs it</label></li>
+          <li><input type="radio" id="q9a2" name="q9" value="C"><label for="q9a2">directs it</label></li>
+          <li><input type="radio" id="q9a3" name="q9" value="D"><label for="q9a3">that directs</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="10" hidden>
+        <div class="question-text">
+          ____ 363 miles between the cities of Albany and Buffalo in New York State, the Erie Canal helped link the Atlantic Ocean with the Great Lakes.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q10a0" name="q10" value="A"><label for="q10a0">The extension of</label></li>
+          <li><input type="radio" id="q10a1" name="q10" value="B"><label for="q10a1">The extension</label></li>
+          <li><input type="radio" id="q10a2" name="q10" value="C"><label for="q10a2">Extending</label></li>
+          <li><input type="radio" id="q10a3" name="q10" value="D"><label for="q10a3">Extends</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="11" hidden>
+        <div class="question-text">
+          The chief sources of B12, a water-soluble vitamin ____ stored in the body, include meat, milk and eggs.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q11a0" name="q11" value="A"><label for="q11a0"> is not</label></li>
+          <li><input type="radio" id="q11a1" name="q11" value="B"><label for="q11a1">that is not</label></li>
+          <li><input type="radio" id="q11a2" name="q11" value="C"><label for="q11a2"> not that is</label></li>
+          <li><input type="radio" id="q11a3" name="q11" value="D"><label for="q11a3">that not</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="12" hidden>
+        <div class="question-text">
+           ____ is rooted in experiments in iron and steel conducted in the nineteenth century.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q12a0" name="q12" value="A"><label for="q12a0">While the history of twentieth-century architecture</label></li>
+          <li><input type="radio" id="q12a1" name="q12" value="B"><label for="q12a1">The history of twentieth-century architecture</label></li>
+          <li><input type="radio" id="q12a2" name="q12" value="C"><label for="q12a2">That the history of twentieth-century architecture</label></li>
+          <li><input type="radio" id="q12a3" name="q12" value="D"><label for="q12a3">Both twentieth-century architecture and its history</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="13" hidden>
+        <div class="question-text">
+          The primary source of energy for tropical cyclones is the latent heat released when ____
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q13a0" name="q13" value="A"><label for="q13a0">does water vapor condense</label></li>
+          <li><input type="radio" id="q13a1" name="q13" value="B"><label for="q13a1">condensed water vapor</label></li>
+          <li><input type="radio" id="q13a2" name="q13" value="C"><label for="q13a2">water vapor condenses</label></li>
+          <li><input type="radio" id="q13a3" name="q13" value="D"><label for="q13a3"> the condensation of water vapor</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="14" hidden>
+        <div class="question-text">
+          Manufacturing is Canada’s most important economic activity, ____ 17 percent of the workforce.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q14a0" name="q14" value="A"><label for="q14a0">engages</label></li>
+          <li><input type="radio" id="q14a1" name="q14" value="B"><label for="q14a1">and to engage</label></li>
+          <li><input type="radio" id="q14a2" name="q14" value="C"><label for="q14a2">that it engage</label></li>
+          <li><input type="radio" id="q14a3" name="q14" value="D"><label for="q14a3">engaging</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="15" hidden>
+        <div class="question-text">
+          The ancestors of the horse lived _____ and were about half a meter tall.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q15a0" name="q15" value="A"><label for="q15a0">years ago 60 million</label></li>
+          <li><input type="radio" id="q15a1" name="q15" value="B"><label for="q15a1">60 million years ago</label></li>
+          <li><input type="radio" id="q15a2" name="q15" value="C"><label for="q15a2">ago 60 million years</label></li>
+          <li><input type="radio" id="q15a3" name="q15" value="D"><label for="q15a3">million years ago 60</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="16" hidden>
+        <div class="question-text">
+          The museum on Ellis Island, a former immigration station, contains documents and artifacts _____ to four centuries of United States immigration.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q16a0" name="q16" value="A"><label for="q16a0">related them</label></li>
+          <li><input type="radio" id="q16a1" name="q16" value="B"><label for="q16a1">related</label></li>
+          <li><input type="radio" id="q16a2" name="q16" value="C"><label for="q16a2">related that</label></li>
+          <li><input type="radio" id="q16a3" name="q16" value="D"><label for="q16a3">be related</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="17" hidden>
+        <div class="question-text">
+           _____, particularly the oxides of sulfur, greatly increases the rate at which rust forms.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q17a0" name="q17" value="A"><label for="q17a0">The presence of air pollutants</label></li>
+          <li><input type="radio" id="q17a1" name="q17" value="B"><label for="q17a1">Air pollutants are present</label></li>
+          <li><input type="radio" id="q17a2" name="q17" value="C"><label for="q17a2">Because the presence of air pollutants</label></li>
+          <li><input type="radio" id="q17a3" name="q17" value="D"><label for="q17a3">Air pollutants whose presence</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="18" hidden>
+        <div class="question-text">
+          The Sun, the Moon, and Earth have magnetic fields, and _____ evidence that the stellar galaxies have fields that extend through vast regions of space.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q18a0" name="q18" value="A"><label for="q18a0">which is</label></li>
+          <li><input type="radio" id="q18a1" name="q18" value="B"><label for="q18a1"> is</label></li>
+          <li><input type="radio" id="q18a2" name="q18" value="C"><label for="q18a2">because</label></li>
+          <li><input type="radio" id="q18a3" name="q18" value="D"><label for="q18a3">there is</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="19" hidden>
+        <div class="question-text">
+          The “confederation school” poets of nineteenth-century Canada were primarily nature poets, _____ a wealth of eulogies to Canadian rural life.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q19a0" name="q19" value="A"><label for="q19a0">and producing</label></li>
+          <li><input type="radio" id="q19a1" name="q19" value="B"><label for="q19a1">who they produced</label></li>
+          <li><input type="radio" id="q19a2" name="q19" value="C"><label for="q19a2">producing</label></li>
+          <li><input type="radio" id="q19a3" name="q19" value="D"><label for="q19a3">whose production of</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="20" hidden>
+        <div class="question-text">
+          Since prehistoric people first applied natural pigments to cave walls, _____ have painted to express themselves.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q20a0" name="q20" value="A"><label for="q20a0">when artists</label></li>
+          <li><input type="radio" id="q20a1" name="q20" value="B"><label for="q20a1">artists</label></li>
+          <li><input type="radio" id="q20a2" name="q20" value="C"><label for="q20a2">artists who</label></li>
+          <li><input type="radio" id="q20a3" name="q20" value="D"><label for="q20a3">that artists</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="21" hidden>
+        <div class="question-text">
+          About 42 million bushels of oats are used annually _____ manufacture of breakfast foods in the United States.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q21a0" name="q21" value="A"><label for="q21a0">the</label></li>
+          <li><input type="radio" id="q21a1" name="q21" value="B"><label for="q21a1">is the</label></li>
+          <li><input type="radio" id="q21a2" name="q21" value="C"><label for="q21a2">in the</label></li>
+          <li><input type="radio" id="q21a3" name="q21" value="D"><label for="q21a3">to</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="22" hidden>
+        <div class="question-text">
+          Any acid can, in principle, neutralize any base, although _____ between some of the more reactive compounds.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q22a0" name="q22" value="A"><label for="q22a0">side reactions can occur</label></li>
+          <li><input type="radio" id="q22a1" name="q22" value="B"><label for="q22a1">the occurrence of side reactions can</label></li>
+          <li><input type="radio" id="q22a2" name="q22" value="C"><label for="q22a2">can side reactions occur</label></li>
+          <li><input type="radio" id="q22a3" name="q22" value="D"><label for="q22a3">side reactions that can occur</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="23" hidden>
+        <div class="question-text">
+          Just over two-thirds of Earth’s surface is covered by water, _____ more than 98 percent of this water is contained in the oceans.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q23a0" name="q23" value="A"><label for="q23a0">with</label></li>
+          <li><input type="radio" id="q23a1" name="q23" value="B"><label for="q23a1">which</label></li>
+          <li><input type="radio" id="q23a2" name="q23" value="C"><label for="q23a2">and</label></li>
+          <li><input type="radio" id="q23a3" name="q23" value="D"><label for="q23a3">resulting</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="24" hidden>
+        <div class="question-text">
+          Pleasing to look at and touch, beads come in shapes, colors, and materials _____ to handle and to sort them.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q24a0" name="q24" value="A"><label for="q24a0">that almost compel one</label></li>
+          <li><input type="radio" id="q24a1" name="q24" value="B"><label for="q24a1">one compels</label></li>
+          <li><input type="radio" id="q24a2" name="q24" value="C"><label for="q24a2">that compel almost</label></li>
+          <li><input type="radio" id="q24a3" name="q24" value="D"><label for="q24a3">one is almost compelled</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="25" hidden>
+        <div class="question-text">
+          In 1978 the United States National Air and Space Administration selected Sally Ride _____ the first woman astronaut.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q25a0" name="q25" value="A"><label for="q25a0"> who being</label></li>
+          <li><input type="radio" id="q25a1" name="q25" value="B"><label for="q25a1"> to be</label></li>
+          <li><input type="radio" id="q25a2" name="q25" value="C"><label for="q25a2">and being</label></li>
+          <li><input type="radio" id="q25a3" name="q25" value="D"><label for="q25a3">was</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="26" hidden>
+        <div class="question-text">
+          Adhesions are _____ formed within the body in response to inflammation or injury.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q26a0" name="q26" value="A"><label for="q26a0">that thin bands of scar tissue</label></li>
+          <li><input type="radio" id="q26a1" name="q26" value="B"><label for="q26a1"> they thin bands of scar tissue when</label></li>
+          <li><input type="radio" id="q26a2" name="q26" value="C"><label for="q26a2">thin bands of scar tissue</label></li>
+          <li><input type="radio" id="q26a3" name="q26" value="D"><label for="q26a3">thin bands of scar tissue able to</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="27" hidden>
+        <div class="question-text">
+          The planet Neptune is about 30 times _____ from the Sun as Earth is.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q27a0" name="q27" value="A"><label for="q27a0">far</label></li>
+          <li><input type="radio" id="q27a1" name="q27" value="B"><label for="q27a1">as far</label></li>
+          <li><input type="radio" id="q27a2" name="q27" value="C"><label for="q27a2">more far</label></li>
+          <li><input type="radio" id="q27a3" name="q27" value="D"><label for="q27a3">far that</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="28" hidden>
+        <div class="question-text">
+          Not until the 1850’s _____ a few public-spirited citizens and state legislatures seek to rescue historic buildings in the United States from destruction or alteration.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q28a0" name="q28" value="A"><label for="q28a0">both</label></li>
+          <li><input type="radio" id="q28a1" name="q28" value="B"><label for="q28a1">came</label></li>
+          <li><input type="radio" id="q28a2" name="q28" value="C"><label for="q28a2">did</label></li>
+          <li><input type="radio" id="q28a3" name="q28" value="D"><label for="q28a3">when</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="29" hidden>
+        <div class="question-text">
+          _____ 200 bones forming the framework, or skeleton, of the human body.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q29a0" name="q29" value="A"><label for="q29a0">Being over</label></li>
+          <li><input type="radio" id="q29a1" name="q29" value="B"><label for="q29a1">There are over</label></li>
+          <li><input type="radio" id="q29a2" name="q29" value="C"><label for="q29a2">Where over</label></li>
+          <li><input type="radio" id="q29a3" name="q29" value="D"><label for="q29a3">Over</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="30" hidden>
+        <div class="question-text">
+          In the late 1970’s and early 1980’s, the United States developed the reusable space shuttle _______ to space cheaper and easier.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q30a0" name="q30" value="A"><label for="q30a0">to make access</label></li>
+          <li><input type="radio" id="q30a1" name="q30" value="B"><label for="q30a1">and making access</label></li>
+          <li><input type="radio" id="q30a2" name="q30" value="C"><label for="q30a2">which made accessible</label></li>
+          <li><input type="radio" id="q30a3" name="q30" value="D"><label for="q30a3">and made accessible</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="31" hidden>
+        <div class="question-text">
+          Genetically, the chimpanzee is more similar to humans _______.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q31a0" name="q31" value="A"><label for="q31a0">are than any other animal</label></li>
+          <li><input type="radio" id="q31a1" name="q31" value="B"><label for="q31a1">than is any other animal</label></li>
+          <li><input type="radio" id="q31a2" name="q31" value="C"><label for="q31a2">any other animal is</label></li>
+          <li><input type="radio" id="q31a3" name="q31" value="D"><label for="q31a3">and any other animal is</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="32" hidden>
+        <div class="question-text">
+          _______ more than 65,000 described species of protozoa, of which more than half are fossils.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q3a0" name="q32" value="A"><label for="q32a0">Being that there are</label></li>
+          <li><input type="radio" id="q32a1" name="q32" value="B"><label for="q32a1">There being</label></li>
+          <li><input type="radio" id="q32a2" name="q32" value="C"><label for="q32a2">Are there</label></li>
+          <li><input type="radio" id="q32a3" name="q32" value="D"><label for="q32a3">There are</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="33" hidden>
+        <div class="question-text">
+          The Sherman Antitrust Act of 1890 ___ nearly unanimously through the United States Congress.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q33a0" name="q33" value="A"><label for="q33a0">passed</label></li>
+          <li><input type="radio" id="q33a1" name="q33" value="B"><label for="q33a1">in passage</label></li>
+          <li><input type="radio" id="q33a2" name="q33" value="C"><label for="q33a2">having passed</label></li>
+          <li><input type="radio" id="q33a3" name="q33" value="D"><label for="q33a3">passing</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="34" hidden>
+        <div class="question-text">
+          Modern skyscrapers have a steel skeleton of beams and columns ___ a three-dimensional grid.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q34a0" name="q34" value="A"><label for="q34a0">forms</label></li>
+          <li><input type="radio" id="q34a1" name="q34" value="B"><label for="q34a1">from which forming</label></li>
+          <li><input type="radio" id="q34a2" name="q34" value="C"><label for="q34a2">and forming</label></li>
+          <li><input type="radio" id="q34a3" name="q34" value="D"><label for="q34a3">that forms</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="35" hidden>
+        <div class="question-text">
+          The average level of United States prices grew very little from 1953 until the mid-1960s when ____________.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q35a0" name="q35" value="A"><label for="q35a0">did inflation begin</label></li>
+          <li><input type="radio" id="q35a1" name="q35" value="B"><label for="q35a1">inflation began</label></li>
+          <li><input type="radio" id="q35a2" name="q35" value="C"><label for="q35a2"> the beginning of inflation</label></li>
+          <li><input type="radio" id="q35a3" name="q35" value="D"><label for="q35a3">did the beginning of inflation</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="36" hidden>
+        <div class="question-text">
+          The basic premise behind all agricultural production is _____ available the riches of the soil for human consumption.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q36a0" name="q36" value="A"><label for="q36a0">to be made</label></li>
+          <li><input type="radio" id="q36a1" name="q36" value="B"><label for="q36a1">the making</label></li>
+          <li><input type="radio" id="q36a2" name="q36" value="C"><label for="q36a2"> making is</label></li>
+          <li><input type="radio" id="q36a3" name="q36" value="D"><label for="q36a3">to make</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="37" hidden>
+        <div class="question-text">
+          ___ to the United States House of Representatives in 1791, Nathaniel Macon remained in office until 1815.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q37a0" name="q37" value="A"><label for="q37a0">Election</label></li>
+          <li><input type="radio" id="q37a1" name="q37" value="B"><label for="q37a1">Why he was elected</label></li>
+          <li><input type="radio" id="q37a2" name="q37" value="C"><label for="q37a2">Elected</label></li>
+          <li><input type="radio" id="q37a3" name="q37" value="D"><label for="q37a3">Who was elected</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="38" hidden>
+        <div class="question-text">
+          ________ of classical ballet in the United States began around 1830.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q38a0" name="q38" value="A"><label for="q38a0">To teach</label></li>
+          <li><input type="radio" id="q38a1" name="q38" value="B"><label for="q38a1">Is teaching</label></li>
+          <li><input type="radio" id="q38a2" name="q38" value="C"><label for="q38a2">It was taught</label></li>
+          <li><input type="radio" id="q38a3" name="q38" value="D"><label for="q38a3">The teaching</label></li>
+        </ul>
+      </section>
+
+      <section class="question" data-index="39" hidden>
+        <div class="question-text">
+          The universe is estimated ___ between 10 billion and 20 billion years old.
+        </div>
+        <ul class="options">
+          <li><input type="radio" id="q39a0" name="q39" value="A"><label for="q39a0">being</label></li>
+          <li><input type="radio" id="q39a1" name="q39" value="B"><label for="q39a1">to be</label></li>
+          <li><input type="radio" id="q39a2" name="q39" value="C"><label for="q39a2">which is</label></li>
+          <li><input type="radio" id="q39a3" name="q39" value="D"><label for="q39a3">is</label></li>
+        </ul>
+      </section>
+
+      <div class="buttons">
+        <button type="button" id="prev-btn" disabled>Previous</button>
+        <button type="button" id="next-btn">Next</button>
+      </div>
+    </form>
+
+    <section id="score-section" class="score-section" hidden>
+      <h2>Your Score</h2>
+      <p id="score-text"></p>
+      <button id="restart-btn">Restart Test</button>
+      <a href="Test 3.html"><button id="restart-btn">Next-Reading</button></a>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const correctAnswers = {
+        0: 'B', // began
+        1: 'A', // a small upright piano
+        2: 'C', // an eloquent writer
+        3: 'B', // as long as
+        4: 'B', // and
+        5: 'C', // hydrocarbon molecules break up
+        6: 'C', // All
+        7: 'A', // creeping colonies
+        8: 'D', // winning five of them
+        9: 'D', // that directs
+        10: 'C', // Extending
+        11: 'B', // that is not
+        12: 'B', // The history of twentieth-century architecture
+        13: 'C', // water vapor condenses
+        14: 'D', // engaging
+        15: 'B', // 60 million years ago
+        16: 'B', // related
+        17: 'A', // The presence of air pollutants
+        18: 'D', // there is
+        19: 'C', // producing
+        20: 'B', // artists
+        21: 'C', // in the
+        22: 'A', // side reactions can occur
+        23: 'C', // and
+        24: 'A', // that almost compel one
+        25: 'B', // to be
+        26: 'C', // thin bands of scar tissue
+        27: 'B', // as far
+        28: 'C', // did
+        29: 'B', // There are over
+        30: 'A', // to make access
+        31: 'B', // than is any other animal
+        32: 'D', // There are
+        33: 'A', // passed
+        34: 'D', // that forms
+        35: 'B', // inflation began
+        36: 'D', // to make
+        37: 'C', // Elected
+        38: 'D', // The teaching
+        39: 'B'  // to be
+      };
+
+      const questions = document.querySelectorAll('.question');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      const scoreSection = document.getElementById('score-section');
+      const scoreText = document.getElementById('score-text');
+      const explanationText = document.getElementById('explanation-text');
+      const restartBtn = document.getElementById('restart-btn');
+      const form = document.getElementById('test-form');
+      const timerEl = document.getElementById('timer');
+
+      let currentIndex = 0;
+      let timeLeft = 30 * 60; // 25 minutes in seconds
+      let timerInterval;
+
+      function formatTime(seconds) {
+        const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+        const s = (seconds % 60).toString().padStart(2, '0');
+        return `${m}:${s}`;
+      }
+
+      function updateTimer() {
+        timerEl.textContent = 'Waktu tersisa: ' + formatTime(timeLeft);
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          alert('Waktu habis! Tes akan disubmit secara otomatis.');
+          submitTest();
+        }
+        timeLeft--;
+      }
+
+      function showQuestion(index) {
+        questions.forEach((q, i) => q.hidden = i !== index);
+        prevBtn.disabled = index === 0;
+        nextBtn.textContent = index === questions.length - 1 ? 'Submit' : 'Next';
+      }
+
+      function getSelectedAnswer(index) {
+        const options = document.querySelectorAll(`input[name="q${index}"]`);
+        for (let option of options) {
+          if (option.checked) return option.value;
+        }
+        return null;
+      }
+
+      function calculateScore() {
+        let score = 0;
+        for (let i = 0; i < questions.length; i++) {
+          if (getSelectedAnswer(i) === correctAnswers[i]) score++;
+        }
+        return score;
+      }
+
+      nextBtn.addEventListener('click', () => {
+        const selected = getSelectedAnswer(currentIndex);
+        if (!selected) return alert('Pilih jawaban terlebih dahulu.');
+
+        if (currentIndex < questions.length - 1) {
+          currentIndex++;
+          showQuestion(currentIndex);
+        } else {
+          const score = calculateScore();
+          form.hidden = true;
+          scoreSection.hidden = false;
+          scoreText.textContent = `Kamu menjawab ${score} dari ${questions.length} soal dengan benar.`;
+        }
+      });
+
+      prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+          currentIndex--;
+          showQuestion(currentIndex);
+        }
+      });
+
+      restartBtn.addEventListener('click', () => {
+        form.reset();
+        form.hidden = false;
+        scoreSection.hidden = true;
+        currentIndex = 0;
+        timeLeft = 30 * 60;
+        showQuestion(currentIndex);
+        prevBtn.disabled = true;
+        nextBtn.disabled = false;
+        questions.forEach(section => {
+          const inputs = section.querySelectorAll('input[type=radio]');
+          inputs.forEach(input => input.disabled = false);
+        });
+        timerEl.textContent = 'Waktu tersisa: 30:00';
+        clearInterval(timerInterval);
+        timerInterval = setInterval(updateTimer, 1000);
+      });
+
+      showQuestion(currentIndex);
+      timerInterval = setInterval(updateTimer, 1000);
+    })();
+  </script>
+</body>
+</html>
